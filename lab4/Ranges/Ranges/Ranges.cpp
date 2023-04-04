@@ -24,12 +24,12 @@ void task2() {
 	std::cout << "Task 2\n";
 
 	// Place for solution
-	auto inp = std::ranges::views::iota(0, 100);
+	auto inp = std::ranges::views::iota(0, 101);
 
 	auto divisibleBy3 = [](int i) {return i % 3 == 0; };
 	auto notDivisibleBy7 = [](int i) {return i % 7; };
 	auto greaterThan12 = [](int i) {return i > 12; };
-	
+
 
 	auto outp = inp
 		| std::ranges::views::filter(divisibleBy3)
@@ -58,7 +58,7 @@ void task3() {
 	std::cout << '\t';
 	for (auto group : view) {
 		std::cout << "[";
-		for (const auto num: group)
+		for (const auto num : group)
 			std::cout << num << ' ';
 		std::cout << "] ";
 	}
@@ -75,10 +75,10 @@ void task4()
 	std::map<std::string, double> heights{ {"Smith", 1.76}, {"Brown", 1.68}, {"Jones", 1.81},
 		{"Baker", 1.77}, {"Parker", 1.65}, {"Cooper", 1.79}, {"Fisher", 1.69} };
 	// Place for solution
-	
+
 	auto higherThan170 = [](double height) { return height > 1.70; };
 
-	auto values = heights 
+	auto values = heights
 		| std::ranges::views::values
 		| std::ranges::views::filter(higherThan170);
 
@@ -103,6 +103,26 @@ void task5() {
 		"The moral of the story is that true friendship means caring for each other and protecting each other, no matter what.";
 
 	// Place for solution
+
+	auto words = input | std::views::split(' ') | std::views::transform([](auto&& rng) {
+		return std::string_view(&*rng.begin(), std::ranges::distance(rng));
+		});
+
+	std::map<std::string_view, int> countWords;
+	for (auto&& word : words) {
+		++countWords[word];
+	}
+
+	//for(auto &word: countWords)
+		//std::cout << word.first << ": " << word.second << std::endl;
+
+	auto mostCommonLambda = [](auto& a, auto& b) {
+		return a.second < b.second;
+	};
+
+	auto mostCommonWord = std::ranges::max_element(countWords, mostCommonLambda);
+
+	std::cout << "\tMost common word: " << mostCommonWord->first << std::endl;
 
 	// --------
 }
