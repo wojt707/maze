@@ -7,6 +7,16 @@ Wall::Wall(Cell& _firstCell, Cell& _secondCell, bool _isHorizontal)
 	this->isHorizontal = _isHorizontal;
 }
 
+bool Wall::isBetweenConnectedCells()
+{
+	return this->firstCell->isConnectedWith(*this->secondCell);
+}
+
+void Wall::joinCells()
+{
+	this->firstCell->joinCell(*this->secondCell);
+}
+
 void Wall::remove()
 {
 	if (this->isHorizontal)

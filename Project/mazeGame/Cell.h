@@ -1,17 +1,15 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include <iostream>
 
 class Cell
 {
 private:
+	std::shared_ptr<std::vector<Cell*>> group;
 
 public:
-	std::shared_ptr<std::vector<Cell*>> group;
 	bool rightWall;
-	bool bottomWall;	
-
+	bool bottomWall;
 
 	Cell();
 	void init();

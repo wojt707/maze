@@ -5,13 +5,17 @@
 
 class Wall
 {
-public:
+private:
+	bool isHorizontal;
 	Cell* firstCell;
 	Cell* secondCell;
-	bool isHorizontal;
+
+public:
 
 	Wall(Cell& _firstCell, Cell& _secondCell, bool _isHorizontal);
-	
+
+	bool isBetweenConnectedCells();
+	void joinCells();
 	void remove();
 };
 
