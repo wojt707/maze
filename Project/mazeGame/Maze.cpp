@@ -5,8 +5,8 @@ Maze::Maze(unsigned int _rows, unsigned int _cols)
 	this->rows = _rows;
 	this->cols = _cols;
 
-	this->screenWidth = (_cols * 2 + 1) * cellSideLength;
-	this->screenHeight = (_rows * 2 + 1) * cellSideLength;
+	//this->screenWidth = (_cols * 2 + 1) * cellSideLength;
+	//this->screenHeight = (_rows * 2 + 1) * cellSideLength;
 
 	for (int r = 0; r < _rows; r++)
 	{
@@ -19,6 +19,7 @@ Maze::Maze(unsigned int _rows, unsigned int _cols)
 	for (auto& row : this->cells)
 		for (auto& cell : row)
 			cell.init();
+	this->generate();
 }
 
 void Maze::createWalls()
@@ -53,83 +54,35 @@ void Maze::generate()
 	this->shuffleWalls();
 
 	for (auto& wall : this->walls)
-		if (!wall.firstCell->isConnectedWith(*wall.secondCell))
+		if (!wall.isBetweenConnectedCells())
 		{
-			wall.firstCell->joinCell(*wall.secondCell);
+			wall.joinCells();
 			wall.remove();
 		}
 }
 
-void Maze::draw()
+void Maze::draw(sf::RenderWindow& _window)
 {
-	sf::RenderWindow window(sf::VideoMode(this->screenWidth, this->screenHeight), "Maze");
-
 	sf::RectangleShape rectangle(sf::Vector2f(cellSideLength, cellSideLength));
 	rectangle.setFillColor(sf::Color::White);
 
-	while (window.isOpen())
+	for (int r = 0; r < this->rows; r++)
 	{
-		sf::Event event;
-
-		while (window.pollEvent(event))
+		for (int c = 0; c < this->cols; c++)
 		{
-			switch (event.type) {
-			case sf::Event::Closed:
-				window.close();
-				break;
-			case sf::Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Escape) {
-					window.close();
-				}
-				break;
-			default:
-				break;
-			}
-		}
+			rectangle.setPosition(float(cellSideLength * (2 * c + 1)), float(cellSideLength * (2 * r + 1)));
+			_window.draw(rectangle);
 
-		window.clear(sf::Color::Black);
-
-		//update();
-
-		for (int r = 0; r < this->rows; r++)
-		{
-			for (int c = 0; c < this->cols; c++)
+			if (!this->cells[r][c].rightWall)
 			{
-				rectangle.setPosition(float(cellSideLength * (2 * c + 1)), float(cellSideLength * (2 * r + 1)));
-				window.draw(rectangle);
-
-				if (!this->cells[r][c].rightWall)
-				{
-					rectangle.setPosition(float(cellSideLength * (2 * c + 2)), float(cellSideLength * (2 * r + 1)));
-					window.draw(rectangle);
-				}
-				if (!this->cells[r][c].bottomWall)
-				{
-					rectangle.setPosition(float(cellSideLength * (2 * c + 1)), float(cellSideLength * (2 * r + 2)));
-					window.draw(rectangle);
-				}
+				rectangle.setPosition(float(cellSideLength * (2 * c + 2)), float(cellSideLength * (2 * r + 1)));
+				_window.draw(rectangle);
+			}
+			if (!this->cells[r][c].bottomWall)
+			{
+				rectangle.setPosition(float(cellSideLength * (2 * c + 1)), float(cellSideLength * (2 * r + 2)));
+				_window.draw(rectangle);
 			}
 		}
-
-		//sf::sleep(sf::milliseconds(30));
-
-		window.display();
-	}
-}
-
-void Maze::update() {
-
-	if (!this->walls.size()) {
-		std::cout << "koniec" << std::endl;
-		return;
-	}
-
-	Wall wall = this->walls.back();
-	this->walls.pop_back();
-
-	if (!wall.firstCell->isConnectedWith(*wall.secondCell))
-	{
-		wall.firstCell->joinCell(*wall.secondCell);
-		wall.remove();
 	}
 }

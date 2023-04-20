@@ -4,41 +4,38 @@
 
 #include "Maze.h"
 
+
 int main()
 {
-	const unsigned int cols = 5;
-	const unsigned int rows = 10;
-	Maze maze;
-	maze.generate();
-	maze.draw();
+	const unsigned int screen = 800;
+	Maze maze(10,10);
 
-	return 0;
-	sf::RenderWindow window(sf::VideoMode(600, 800), "Some title");
+	sf::RenderWindow window(sf::VideoMode(screen, screen), "Maze");
 
 	while (window.isOpen())
 	{
 		sf::Event event;
+
 		while (window.pollEvent(event))
 		{
-			switch (event.type)
-			{
+			switch (event.type) {
 			case sf::Event::Closed:
 				window.close();
-			case sf::Event::TextEntered:
-				if (event.text.unicode < 128)
-				{
-					char c = event.text.unicode;
-					std::cout << c;
-				}
+				break;
+			case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Escape)
+					window.close();
+				break;
 			default:
 				break;
 			}
-
 		}
 
+		window.clear(sf::Color::Black);
+		maze.draw(window);
+		
+		window.display();
 	}
-
-
 
 	return 0;
 }
