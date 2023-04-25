@@ -5,9 +5,6 @@ Maze::Maze(unsigned int _rows, unsigned int _cols)
 	this->rows = _rows;
 	this->cols = _cols;
 
-	//this->screenWidth = (_cols * 2 + 1) * cellSideLength;
-	//this->screenHeight = (_rows * 2 + 1) * cellSideLength;
-
 	for (int r = 0; r < _rows; r++)
 	{
 		std::vector<Cell> row;

@@ -1,13 +1,15 @@
+#ifndef MAZE_H
+#define MAZE_H
 #pragma once
+
 #include <vector>
 #include <random>
-
 #include <SFML/Graphics.hpp>
 
 #include "Cell.h"
 #include "Wall.h"
 
-const unsigned int cellSideLength = 20;
+const unsigned int cellSideLength = 80;
 
 class Maze
 {
@@ -25,3 +27,5 @@ public:
 	Maze(unsigned int _rows = 8, unsigned  int _cols = 8);
 	void draw(sf::RenderWindow& _window);
 };
+
+#endif

@@ -1,4 +1,7 @@
+#ifndef CELL_H
+#define CELL_H
 #pragma once
+
 #include <vector>
 #include <memory>
 
@@ -20,3 +23,5 @@ public:
 	void destroyRightWall();
 	void destroyBottomWall();
 };
+
+#endif
