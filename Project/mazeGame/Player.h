@@ -1,10 +1,9 @@
-#pragma once
 #ifndef PLAYER_H
 #define PLAYER_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
 
 class Player
 {
@@ -20,4 +19,5 @@ public:
 	void draw(sf::RenderWindow& _window);
 
 };
+
 #endif
