@@ -9,9 +9,9 @@
 class Wall
 {
 private:
+	Cell& firstCell;
+	Cell& secondCell;
 	bool isHorizontal;
-	Cell* firstCell;
-	Cell* secondCell;
 
 public:
 

@@ -9,16 +9,19 @@ class Cell
 {
 private:
 	std::shared_ptr<std::vector<Cell*>> group;
-
-public:
 	bool rightWall;
 	bool bottomWall;
+
+public:
 
 	Cell();
 	void init();
 
 	void joinCell(Cell& another);
 	bool isConnectedWith(Cell& another);
+
+	bool hasRightWall();
+	bool hasBottomWall();
 
 	void destroyRightWall();
 	void destroyBottomWall();

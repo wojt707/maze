@@ -1,11 +1,7 @@
 #include "Cell.h"
 
 Cell::Cell()
-{
-	this->rightWall = true;
-	this->bottomWall = true;
-	this->group = nullptr;
-}
+	: rightWall(true), bottomWall(true), group(nullptr) { }
 
 void Cell::init()
 {
@@ -25,6 +21,16 @@ void Cell::joinCell(Cell& another)
 bool Cell::isConnectedWith(Cell& another)
 {
 	return this->group == another.group;
+}
+
+bool Cell::hasRightWall()
+{
+	return this->rightWall;
+}
+
+bool Cell::hasBottomWall()
+{
+	return this->bottomWall;
 }
 
 
