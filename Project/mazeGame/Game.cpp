@@ -3,16 +3,11 @@
 #include "Player.h"
 #include "GameState.h"
 #include "MenuState.h"
+#include "Constants.h"
 
 void Game::run()
 {
-	const unsigned int cols = 8;
-	const unsigned int rows = 4;
-
-	unsigned int screenWidth = (cols * 2 + 1) * cellSideLength;
-	unsigned int screenHeight = (rows * 2 + 1) * cellSideLength;
-
-	this->window.create(sf::VideoMode(screenWidth, screenHeight), "Maze");
+	this->window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze");
 
 	std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->window);
 	this->stateManager.changeState(std::move(menuState));

@@ -1,11 +1,21 @@
 #include "Player.h"
 
-Player::Player(sf::Vector2f _position, float _speed) :
-	shape(sf::Vector2f(30.0f, 30.0f)), velocity(0.0f, 0.0f), speed(_speed)
+Player::Player(sf::Vector2f _position, float _speed)
+	: shape(sf::Vector2f(30.0f, 30.0f)), velocity(0.0f, 0.0f), speed(_speed), angle(0.0f)
 {
 	shape.setOrigin(sf::Vector2f(15.0f, 15.0f));
 	shape.setPosition(_position);
 	shape.setFillColor(sf::Color::Green);
+}
+
+sf::Vector2f Player::getPosition()
+{
+	return this->shape.getPosition();
+}
+
+sf::FloatRect Player::getGlobalBounds()
+{
+	return this->shape.getGlobalBounds();
 }
 
 void Player::handleInput()

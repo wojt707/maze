@@ -1,7 +1,8 @@
 #include <iostream>
 #include "StateManager.h"
 
-StateManager::StateManager() :isRunning(true)
+StateManager::StateManager()
+	: isRunning(true)
 {
 	std::cout << "State Manager initialized" << std::endl;
 }

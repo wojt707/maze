@@ -156,8 +156,9 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Maze.cpp" />
-    <ClCompile Include="mazeGame.cpp" />
+    <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StateManager.cpp" />
@@ -165,9 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Maze.h" />
+    <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="State.h" />

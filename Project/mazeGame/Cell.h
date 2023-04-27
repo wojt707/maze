@@ -13,7 +13,6 @@ private:
 	bool bottomWall;
 
 public:
-
 	Cell();
 	void init();
 
