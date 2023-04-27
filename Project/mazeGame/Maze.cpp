@@ -1,7 +1,7 @@
 #include "Maze.h"
 
 Maze::Maze(unsigned int _rows, unsigned int _cols)
-	: rows(_rows), cols(_cols)
+	: rows(_rows), cols(_cols), mapWidth(2 * _cols + 1), mapHeight(2 * _rows + 1), map(nullptr)
 {
 	for (unsigned int r = 0; r < _rows; r++)
 	{
@@ -15,6 +15,20 @@ Maze::Maze(unsigned int _rows, unsigned int _cols)
 		for (auto& cell : row)
 			cell.init();
 	this->generate();
+}
+
+void Maze::generate()
+{
+	this->createWalls();
+	this->shuffleWalls();
+
+	for (auto& wall : this->walls)
+		if (!wall.isBetweenConnectedCells())
+		{
+			wall.joinCells();
+			wall.remove();
+		}
+	this->createMap();
 }
 
 void Maze::createWalls()
@@ -51,47 +65,51 @@ void Maze::shuffleWalls()
 	// Reorder the walls vector based on the shuffled pointers
 	std::vector<Wall> shuffledWalls;
 	shuffledWalls.reserve(this->walls.size());
-	
+
 	for (Wall* wallPtr : wallPointers)
 		shuffledWalls.push_back(*wallPtr);
 
 	this->walls = std::move(shuffledWalls);
 }
 
-void Maze::generate()
+void Maze::createMap()
 {
-	this->createWalls();
-	this->shuffleWalls();
-
-	for (auto& wall : this->walls)
-		if (!wall.isBetweenConnectedCells())
-		{
-			wall.joinCells();
-			wall.remove();
-		}
-}
-
-void Maze::draw(sf::RenderWindow& _window)
-{
-	sf::RectangleShape rectangle(sf::Vector2f(cellSideLength, cellSideLength));
-	rectangle.setFillColor(sf::Color::White);
+	this->map = std::make_unique<bool[]>(this->mapHeight * this->mapWidth);
+	std::fill(this->map.get(), this->map.get() + this->mapHeight * this->mapWidth, true);
 
 	for (unsigned int r = 0; r < this->rows; r++)
 	{
 		for (unsigned int c = 0; c < this->cols; c++)
 		{
-			rectangle.setPosition(float(cellSideLength * (2 * c + 1)), float(cellSideLength * (2 * r + 1)));
-			_window.draw(rectangle);
+			this->map[(2 * r + 1) * this->mapWidth + (2 * c + 1)] = false;
 
 			if (!this->cells[r][c].hasRightWall())
-			{
-				rectangle.setPosition(float(cellSideLength * (2 * c + 2)), float(cellSideLength * (2 * r + 1)));
-				_window.draw(rectangle);
-			}
+				this->map[(2 * r + 1) * this->mapWidth + (2 * c + 2)] = false;
+
 			if (!this->cells[r][c].hasBottomWall())
+				this->map[(2 * r + 2) * this->mapWidth + (2 * c + 1)] = false;
+		}
+	}
+}
+
+bool Maze::mapAt(unsigned int x, unsigned int y)
+{
+	return this->map[y * this->mapWidth + x];
+}
+
+void Maze::draw(sf::RenderWindow& _window)
+{
+	sf::RectangleShape mapCell(sf::Vector2f(cellSideLength, cellSideLength));
+	mapCell.setFillColor(sf::Color::White);
+
+	for (unsigned int y = 0; y < this->mapHeight; y++)
+	{
+		for (unsigned int x = 0; x < this->mapWidth; x++)
+		{
+			if (!this->mapAt(x, y)) // if the map at (x,y) is true then there is a wall, if false then there is a path
 			{
-				rectangle.setPosition(float(cellSideLength * (2 * c + 1)), float(cellSideLength * (2 * r + 2)));
-				_window.draw(rectangle);
+				mapCell.setPosition(float(cellSideLength * c), float(cellSideLength * r));
+				_window.draw(mapCell);
 			}
 		}
 	}
