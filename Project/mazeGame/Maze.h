@@ -20,7 +20,7 @@ public:
 
 	void draw(sf::RenderWindow& _window);
 	bool mapAt(unsigned int x, unsigned int y);
-	bool checkCollisions(Player& _player);
+	void handleCollisions(Player& _player);
 };
 
 #endif

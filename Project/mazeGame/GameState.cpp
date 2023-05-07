@@ -4,7 +4,7 @@
 GameState::GameState(StateManager& _stateManager, sf::RenderWindow& _window)
 	: State(_stateManager, _window),
 	maze(15, 9),
-	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 1.00f)
+	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 100.0f)
 {
 	std::cout << "GameState initialized" << std::endl;
 }
@@ -37,8 +37,9 @@ void GameState::handleInput()
 
 void GameState::update(sf::Time& _deltaTime)
 {
-	//if (!this->maze.checkCollisions(this->player))
-		this->player.update(_deltaTime);
+	this->player.update(_deltaTime);
+
+	this->maze.handleCollisions(this->player);
 }
 
 void GameState::draw()

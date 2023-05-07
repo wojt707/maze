@@ -19,50 +19,49 @@ bool Maze::mapAt(unsigned int x, unsigned int y)
 	return this->map[y * this->mapWidth + x];
 }
 
-bool Maze::checkCollisions(Player& _player)
+void Maze::handleCollisions(Player& _player)
 {
-	//bool collided = false;
 	int x = int(_player.getPosition().x / CELL_SIZE);
 	int y = int(_player.getPosition().y / CELL_SIZE);
 
-	//std::cout << "x: " << x << ", y: " << y << std::endl;
-
 	sf::RectangleShape mapCell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 
-	if (mapAt(x - 1, y))
-	{
-		std::cout << "left" << std::endl;
-		mapCell.setPosition(float(CELL_SIZE * (x - 1)), float(CELL_SIZE * y));
-		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			return true;
-		}
-	}
-	if (mapAt(x + 1, y))
-	{
-		std::cout << "right" << std::endl;
-		mapCell.setPosition(float(CELL_SIZE * (x + 1)), float(CELL_SIZE * y));
-		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			return true;
-		}
-	}
+	// top collision
 	if (mapAt(x, y - 1))
 	{
-		std::cout << "up" << std::endl;
 		mapCell.setPosition(float(CELL_SIZE * x), float(CELL_SIZE * (y - 1)));
 		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			return true;
+			std::cout << "top collision\n";
+			_player.setPosition(_player.getPosition().x, y * CELL_SIZE + PLAYER_SIZE / 2);
 		}
 	}
+	// left collision
+	if (mapAt(x - 1, y))
+	{
+		mapCell.setPosition(float(CELL_SIZE * (x - 1)), float(CELL_SIZE * y));
+		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
+			std::cout << "left collision\n";
+			_player.setPosition(x * CELL_SIZE + PLAYER_SIZE / 2, _player.getPosition().y);
+		}
+	}
+	// right collision
+	if (mapAt(x + 1, y))
+	{
+		mapCell.setPosition(float(CELL_SIZE * (x + 1)), float(CELL_SIZE * y));
+		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
+			std::cout << "right collision\n";
+			_player.setPosition((x + 1) * CELL_SIZE - PLAYER_SIZE / 2, _player.getPosition().y);
+		}
+	}
+	// down collision	
 	if (mapAt(x, y + 1))
 	{
-		std::cout << "down" << std::endl;
 		mapCell.setPosition(float(CELL_SIZE * x), float(CELL_SIZE * (y + 1)));
 		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			return true;
+			std::cout << "down collision\n";
+			_player.setPosition(_player.getPosition().x, (y + 1) * CELL_SIZE - PLAYER_SIZE / 2);
 		}
 	}
-
-	return false;
 }
 
 void Maze::draw(sf::RenderWindow& _window)

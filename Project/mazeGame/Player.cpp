@@ -1,9 +1,9 @@
 #include "Player.h"
 
-Player::Player(sf::Vector2f _position, float _speed)
-	: shape(sf::Vector2f(30.0f, 30.0f)), velocity(0.0f, 0.0f), speed(_speed), angle(0.0f)
+Player::Player(sf::Vector2f _position, float _displacementRate)
+	: shape(sf::Vector2f(PLAYER_SIZE, PLAYER_SIZE)), displacement(0.0f, 0.0f), displacementRate(_displacementRate), angle(0.0f)
 {
-	shape.setOrigin(sf::Vector2f(15.0f, 15.0f));
+	shape.setOrigin(sf::Vector2f(PLAYER_SIZE / 2, PLAYER_SIZE / 2));
 	shape.setPosition(_position);
 	shape.setFillColor(sf::Color::Green);
 }
@@ -18,30 +18,43 @@ sf::FloatRect Player::getGlobalBounds()
 	return this->shape.getGlobalBounds();
 }
 
+void Player::setPosition(sf::Vector2f _position)
+{
+	this->shape.setPosition(_position);
+}
+
+void Player::setPosition(float x, float y)
+{
+	this->shape.setPosition(x, y);
+}
+
 void Player::handleInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		velocity.x -= speed;
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		velocity.x += speed;
-	else if (velocity.x)
-		velocity.x += (velocity.x > 0) ? -speed / 2 : speed / 2;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		angle += PLAYER_ROTATION_RATE;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		angle -= PLAYER_ROTATION_RATE;
 
-
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		velocity.y -= speed;
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		velocity.y += speed;
-	else if (velocity.y)
-		velocity.y += (velocity.y > 0) ? -speed / 2 : speed / 2;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		displacement.y = -displacementRate * sin(this->angle);
+		displacement.x = displacementRate * cos(this->angle);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		displacement.y = displacementRate * sin(this->angle);
+		displacement.x = -displacementRate * cos(this->angle);
+	}
+	else
+	{
+		displacement.x = 0.0f;
+		displacement.y = 0.0f;
+	}
 }
 
 void Player::update(sf::Time _deltaTime)
 {
-	shape.move(velocity * _deltaTime.asSeconds());
+	this->angle = fmod(fmod(this->angle, 2 * PI) + 2 * PI, 2 * PI);
 
-	//std::cout << velocity.x << ' ' << velocity.y << std::endl;
+	shape.move(displacement * _deltaTime.asSeconds());
 }
 
 void Player::draw(sf::RenderWindow& _window)

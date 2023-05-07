@@ -3,6 +3,9 @@
 #pragma once
 
 const float PI = 3.14159265359f;
+const float PLAYER_SIZE = 30.0f;
+const float PLAYER_ROTATION_RATE = 0.02f;
+const float PLAYER_DISPLACEMENT_RATE = 0.01f;
 
 const unsigned int CELL_SIZE = 80;
 const unsigned int MIN_MAP_SIZE = 9;
