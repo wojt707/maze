@@ -24,9 +24,19 @@ void GameState::handleInput()
 		case sf::Event::Closed:
 			this->stateManager.quit();
 			break;
+		case sf::Event::LostFocus:
+		{
+			std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->window);
+			this->stateManager.pushState(std::move(pauseState));
+			return;
+		}
 		case sf::Event::KeyPressed:
-			if (event.key.code == sf::Keyboard::Escape)
-				this->stateManager.quit();
+			switch (event.key.code) {
+			case sf::Keyboard::Escape:
+				std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->window);
+				this->stateManager.pushState(std::move(pauseState));
+				return;
+			}
 			break;
 		default:
 			break;

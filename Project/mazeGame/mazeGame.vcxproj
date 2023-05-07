@@ -160,6 +160,7 @@
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />

@@ -80,4 +80,9 @@ void Maze::draw(sf::RenderWindow& _window)
 			}
 		}
 	}
+	mapCell.setPosition(float(CELL_SIZE * 1), float(CELL_SIZE * 1));
+	mapCell.setFillColor(sf::Color::Color(13,100,150));
+	_window.draw(mapCell);
+	mapCell.setPosition(float(CELL_SIZE * (this->mapWidth - 2)), float(CELL_SIZE * (this->mapHeight - 2)));
+	_window.draw(mapCell);
 }

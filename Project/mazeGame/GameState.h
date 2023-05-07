@@ -3,6 +3,7 @@
 #pragma once
 
 #include "StateManager.h"
+#include "PauseState.h"
 #include "Maze.h"
 #include "Player.h"
 
