@@ -1,9 +1,4 @@
 #include "Game.h"
-#include "Maze.h"
-#include "Player.h"
-#include "GameState.h"
-#include "MenuState.h"
-#include "Constants.h"
 
 void Game::run()
 {

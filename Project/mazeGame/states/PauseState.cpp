@@ -1,5 +1,4 @@
 #include "PauseState.h"
-#include "GameState.h"
 
 PauseState::PauseState(StateManager& _stateManager, sf::RenderWindow& _window)
 	: State(_stateManager, _window)

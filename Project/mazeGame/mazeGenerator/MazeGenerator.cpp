@@ -1,5 +1,4 @@
 #include "MazeGenerator.h"
-#include "Constants.h"
 
 MazeGenerator::MazeGenerator(unsigned  int _cols, unsigned int _rows)
 	: rows(_rows), cols(_cols), mapWidth(2 * _cols + 1), mapHeight(2 * _rows + 1)

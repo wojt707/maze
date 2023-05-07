@@ -1,5 +1,4 @@
 #include "Maze.h"
-#include "MazeGenerator.h"
 
 Maze::Maze(unsigned int _mapWidth, unsigned int _mapHeight)
 	: map(nullptr)

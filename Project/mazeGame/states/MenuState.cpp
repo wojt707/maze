@@ -1,5 +1,4 @@
 #include "MenuState.h"
-#include "GameState.h"
 
 MenuState::MenuState(StateManager& _stateManager, sf::RenderWindow& _window)
 	: State(_stateManager, _window)

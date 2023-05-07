@@ -5,6 +5,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
+#include "mazeGenerator/MazeGenerator.h"
 #include "Constants.h"
 #include "Player.h"
 

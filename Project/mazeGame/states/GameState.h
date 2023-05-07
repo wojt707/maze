@@ -4,8 +4,9 @@
 
 #include "StateManager.h"
 #include "PauseState.h"
-#include "Maze.h"
-#include "Player.h"
+#include "../Maze.h"
+#include "../Player.h"
+#include "../Constants.h"
 
 class GameState : public State
 {

@@ -9,7 +9,8 @@
 
 #include "Cell.h"
 #include "Wall.h"
-#include "Player.h"
+#include "../Player.h"
+#include "../Constants.h"
 
 class MazeGenerator
 {

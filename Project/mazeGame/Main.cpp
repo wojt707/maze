@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Maze.h"
 
 int main()
 {

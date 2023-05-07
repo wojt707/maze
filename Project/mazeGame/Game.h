@@ -4,7 +4,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "StateManager.h"
+#include "states/StateManager.h"
+#include "states/GameState.h"
+#include "states/MenuState.h"
+#include "Maze.h"
+#include "Player.h"
+#include "Constants.h"
 
 class Game
 {

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "StateManager.h"
+#include "GameState.h"
 
 class MenuState : public State
 {

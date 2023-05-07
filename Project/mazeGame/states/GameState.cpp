@@ -1,5 +1,4 @@
 #include "GameState.h"
-#include "Constants.h"
 
 GameState::GameState(StateManager& _stateManager, sf::RenderWindow& _window)
 	: State(_stateManager, _window),
