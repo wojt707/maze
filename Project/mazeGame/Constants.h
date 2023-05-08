@@ -2,8 +2,11 @@
 #define CONSTANTS_H
 #pragma once
 
-const float PI = 3.14159265359f;
+const float TWO_PI = 6.28318530718f; // 360 degrees
+const float PI = 3.14159265359f; // 180 degrees
+const float HALF_OF_PI = 1.5707963268f; // 90 degrees
 const float PLAYER_SIZE = 30.0f;
+const float HALF_OF_PLAYER_SIZE = 15.0f;
 const float PLAYER_ROTATION_RATE = 0.02f;
 const float PLAYER_DISPLACEMENT_RATE = 0.01f;
 

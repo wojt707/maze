@@ -1,9 +1,9 @@
 #include "Maze.h"
 
 Maze::Maze(unsigned int _mapWidth, unsigned int _mapHeight)
-	: map(nullptr)
+	: map(nullptr), mapCell(sf::Vector2f(CELL_SIZE, CELL_SIZE))
 {
-	// Making sure that width and height of the map are odd numbers not less than 9
+	// Making sure that width and height of the map are odd numbers not less than MIN_MAP_SIZE
 	this->mapWidth = (_mapWidth < MIN_MAP_SIZE) ? MIN_MAP_SIZE : _mapWidth;
 	this->mapHeight = (_mapHeight < MIN_MAP_SIZE) ? MIN_MAP_SIZE : _mapHeight;
 	this->mapWidth += (this->mapWidth % 2) ? 0 : 1;
@@ -20,53 +20,107 @@ bool Maze::mapAt(unsigned int x, unsigned int y)
 
 void Maze::handleCollisions(Player& _player)
 {
-	int x = int(_player.getPosition().x / CELL_SIZE);
-	int y = int(_player.getPosition().y / CELL_SIZE);
+	int playerCellX = int(_player.getPosition().x / CELL_SIZE);
+	int playerCellY = int(_player.getPosition().y / CELL_SIZE);
 
-	sf::RectangleShape mapCell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+	sf::FloatRect intersection;
 
 	// top collision
-	if (mapAt(x, y - 1))
+	if (this->mapAt(playerCellX, playerCellY - 1))
 	{
-		mapCell.setPosition(float(CELL_SIZE * x), float(CELL_SIZE * (y - 1)));
-		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			std::cout << "top collision\n";
-			_player.setPosition(_player.getPosition().x, y * CELL_SIZE + PLAYER_SIZE / 2);
-		}
+		this->mapCell.setPosition(float(CELL_SIZE * playerCellX), float(CELL_SIZE * (playerCellY - 1)));
+
+		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds()))
+
+			_player.setPosition(_player.getPosition().x, playerCellY * CELL_SIZE + HALF_OF_PLAYER_SIZE);
 	}
+
 	// left collision
-	if (mapAt(x - 1, y))
+	if (this->mapAt(playerCellX - 1, playerCellY))
 	{
-		mapCell.setPosition(float(CELL_SIZE * (x - 1)), float(CELL_SIZE * y));
-		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			std::cout << "left collision\n";
-			_player.setPosition(x * CELL_SIZE + PLAYER_SIZE / 2, _player.getPosition().y);
-		}
+		this->mapCell.setPosition(float(CELL_SIZE * (playerCellX - 1)), float(CELL_SIZE * playerCellY));
+
+		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds()))
+
+			_player.setPosition(playerCellX * CELL_SIZE + HALF_OF_PLAYER_SIZE, _player.getPosition().y);
 	}
+
 	// right collision
-	if (mapAt(x + 1, y))
+	if (this->mapAt(playerCellX + 1, playerCellY))
 	{
-		mapCell.setPosition(float(CELL_SIZE * (x + 1)), float(CELL_SIZE * y));
-		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			std::cout << "right collision\n";
-			_player.setPosition((x + 1) * CELL_SIZE - PLAYER_SIZE / 2, _player.getPosition().y);
-		}
+		this->mapCell.setPosition(float(CELL_SIZE * (playerCellX + 1)), float(CELL_SIZE * playerCellY));
+
+		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds()))
+
+			_player.setPosition((playerCellX + 1) * CELL_SIZE - HALF_OF_PLAYER_SIZE, _player.getPosition().y);
 	}
-	// down collision	
-	if (mapAt(x, y + 1))
+
+	// bottom collision	
+	if (this->mapAt(playerCellX, playerCellY + 1))
 	{
-		mapCell.setPosition(float(CELL_SIZE * x), float(CELL_SIZE * (y + 1)));
-		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds())) {
-			std::cout << "down collision\n";
-			_player.setPosition(_player.getPosition().x, (y + 1) * CELL_SIZE - PLAYER_SIZE / 2);
-		}
+		this->mapCell.setPosition(float(CELL_SIZE * playerCellX), float(CELL_SIZE * (playerCellY + 1)));
+
+		if (_player.getGlobalBounds().intersects(mapCell.getGlobalBounds()))
+
+			_player.setPosition(_player.getPosition().x, (playerCellY + 1) * CELL_SIZE - HALF_OF_PLAYER_SIZE);
+	}
+
+	// left top collision
+	if (this->mapAt(playerCellX - 1, playerCellY - 1))
+	{
+		this->mapCell.setPosition(float(CELL_SIZE * (playerCellX - 1)), float(CELL_SIZE * (playerCellY - 1)));
+
+		if (_player.getGlobalBounds().intersects(this->mapCell.getGlobalBounds(), intersection))
+
+			if (intersection.width < intersection.height)
+				_player.setPosition(playerCellX * CELL_SIZE + HALF_OF_PLAYER_SIZE, _player.getPosition().y);
+			else
+				_player.setPosition(_player.getPosition().x, playerCellY * CELL_SIZE + HALF_OF_PLAYER_SIZE);
+	}
+
+	// right top collision
+	if (this->mapAt(playerCellX + 1, playerCellY - 1))
+	{
+		this->mapCell.setPosition(float(CELL_SIZE * (playerCellX + 1)), float(CELL_SIZE * (playerCellY - 1)));
+
+		if (_player.getGlobalBounds().intersects(this->mapCell.getGlobalBounds(), intersection))
+
+			if (intersection.width < intersection.height)
+				_player.setPosition((playerCellX + 1) * CELL_SIZE - HALF_OF_PLAYER_SIZE, _player.getPosition().y);
+			else
+				_player.setPosition(_player.getPosition().x, playerCellY * CELL_SIZE + HALF_OF_PLAYER_SIZE);
+	}
+
+	// left bottom collision
+	if (this->mapAt(playerCellX - 1, playerCellY + 1))
+	{
+		this->mapCell.setPosition(float(CELL_SIZE * (playerCellX - 1)), float(CELL_SIZE * (playerCellY + 1)));
+
+		if (_player.getGlobalBounds().intersects(this->mapCell.getGlobalBounds(), intersection))
+
+			if (intersection.width < intersection.height)
+				_player.setPosition(playerCellX * CELL_SIZE + HALF_OF_PLAYER_SIZE, _player.getPosition().y);
+			else
+				_player.setPosition(_player.getPosition().x, (playerCellY + 1) * CELL_SIZE - HALF_OF_PLAYER_SIZE);
+	}
+
+	// right bottom collision
+	if (this->mapAt(playerCellX + 1, playerCellY + 1))
+	{
+		this->mapCell.setPosition(float(CELL_SIZE * (playerCellX + 1)), float(CELL_SIZE * (playerCellY + 1)));
+
+		if (_player.getGlobalBounds().intersects(this->mapCell.getGlobalBounds(), intersection))
+
+			if (intersection.width < intersection.height)
+				_player.setPosition((playerCellX + 1) * CELL_SIZE - HALF_OF_PLAYER_SIZE, _player.getPosition().y);
+			else
+				_player.setPosition(_player.getPosition().x, (playerCellY + 1) * CELL_SIZE - HALF_OF_PLAYER_SIZE);
 	}
 }
 
 void Maze::draw(sf::RenderWindow& _window)
 {
-	sf::RectangleShape mapCell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-	mapCell.setFillColor(sf::Color::White);
+	this->mapCell.setFillColor(sf::Color::White);
 
 	for (unsigned int y = 0; y < this->mapHeight; y++)
 	{
@@ -74,14 +128,14 @@ void Maze::draw(sf::RenderWindow& _window)
 		{
 			if (!this->mapAt(x, y)) // if the map at (x,y) is true then there is a wall, if false then there is a path
 			{
-				mapCell.setPosition(float(CELL_SIZE * x), float(CELL_SIZE * y));
-				_window.draw(mapCell);
+				this->mapCell.setPosition(float(CELL_SIZE * x), float(CELL_SIZE * y));
+				_window.draw(this->mapCell);
 			}
 		}
 	}
-	mapCell.setPosition(float(CELL_SIZE * 1), float(CELL_SIZE * 1));
-	mapCell.setFillColor(sf::Color::Color(13,100,150));
-	_window.draw(mapCell);
-	mapCell.setPosition(float(CELL_SIZE * (this->mapWidth - 2)), float(CELL_SIZE * (this->mapHeight - 2)));
-	_window.draw(mapCell);
+	this->mapCell.setPosition(float(CELL_SIZE * 1), float(CELL_SIZE * 1));
+	this->mapCell.setFillColor(sf::Color::Color(13, 100, 150));
+	_window.draw(this->mapCell);
+	this->mapCell.setPosition(float(CELL_SIZE * (this->mapWidth - 2)), float(CELL_SIZE * (this->mapHeight - 2)));
+	_window.draw(this->mapCell);
 }

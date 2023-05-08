@@ -153,46 +153,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Maze.cpp" />
-    <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="mazeGenerator\Cell.cpp" />
     <ClCompile Include="mazeGenerator\MazeGenerator.cpp" />
     <ClCompile Include="mazeGenerator\Wall.cpp" />
-    <ClCompile Include="MenuState.cpp" />
-    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="states\GameState.cpp" />
     <ClCompile Include="states\MenuState.cpp" />
     <ClCompile Include="states\PauseState.cpp" />
     <ClCompile Include="states\StateManager.cpp" />
-    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cell.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameState.h" />
     <ClInclude Include="Maze.h" />
-    <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="mazeGenerator\Cell.h" />
     <ClInclude Include="mazeGenerator\MazeGenerator.h" />
     <ClInclude Include="mazeGenerator\Wall.h" />
-    <ClInclude Include="MenuState.h" />
-    <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="State.h" />
-    <ClInclude Include="StateManager.h" />
     <ClInclude Include="states\GameState.h" />
     <ClInclude Include="states\MenuState.h" />
     <ClInclude Include="states\PauseState.h" />
     <ClInclude Include="states\State.h" />
     <ClInclude Include="states\StateManager.h" />
-    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

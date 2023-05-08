@@ -16,6 +16,8 @@ private:
 	unsigned int mapHeight;
 	std::unique_ptr<bool[]> map;
 
+	sf::RectangleShape mapCell;
+
 public:
 	Maze(unsigned int _mapWidth = MIN_MAP_SIZE, unsigned  int _mapHeight = MIN_MAP_SIZE);
 
