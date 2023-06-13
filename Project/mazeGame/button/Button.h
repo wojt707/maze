@@ -3,17 +3,23 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "../Constants.h"
 
 
-class Button: public sf::Drawable
+class Button : public sf::Drawable
 {
 private:
-	//sf::Sprite button;
 	sf::RectangleShape buttonShape;
+	sf::Text textOfButton;
+	sf::Font font;
+	bool isSelected;
 
 public:
-	Button();
+	Button(sf::Vector2f _buttonPosition, std::string _textOfButton = "");
+	~Button();
+	void setIsSelected(bool _isSelected);
+	bool getIsSelected();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
