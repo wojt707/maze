@@ -134,7 +134,7 @@ void Maze::draw(sf::RenderWindow& _window)
 		}
 	}
 	this->mapCell.setPosition(float(CELL_SIZE * 1), float(CELL_SIZE * 1));
-	this->mapCell.setFillColor(sf::Color::Color(13, 100, 150));
+	this->mapCell.setFillColor(MAIN_COLOR);
 	_window.draw(this->mapCell);
 	this->mapCell.setPosition(float(CELL_SIZE * (this->mapWidth - 2)), float(CELL_SIZE * (this->mapHeight - 2)));
 	_window.draw(this->mapCell);

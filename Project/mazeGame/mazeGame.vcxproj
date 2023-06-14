@@ -156,6 +156,8 @@
     <ClCompile Include="button\ButtonList.cpp" />
     <ClCompile Include="button\Button.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="states\GameOverState.cpp" />
+    <ClCompile Include="states\LevelCompletedState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="mazeGenerator\Cell.cpp" />
@@ -172,6 +174,8 @@
     <ClInclude Include="button\Button.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="states\GameOverState.h" />
+    <ClInclude Include="states\LevelCompletedState.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="mazeGenerator\Cell.h" />
     <ClInclude Include="mazeGenerator\MazeGenerator.h" />

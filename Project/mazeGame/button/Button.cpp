@@ -11,7 +11,7 @@ Button::Button(sf::Vector2f _buttonPosition, std::string _textOfButton)
 	}
 	this->buttonShape.setOrigin(BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);
 	this->buttonShape.setPosition(_buttonPosition);
-	this->buttonShape.setOutlineColor(sf::Color::Color(13, 100, 150));
+	this->buttonShape.setOutlineColor(MAIN_COLOR);
 	this->buttonShape.setFillColor(sf::Color::Transparent);
 	this->buttonShape.setOutlineThickness(1.0);
 
@@ -19,14 +19,14 @@ Button::Button(sf::Vector2f _buttonPosition, std::string _textOfButton)
 	this->textOfButton.setFont(this->font);
 	this->textOfButton.setOrigin(this->textOfButton.getGlobalBounds().width / 2, this->textOfButton.getGlobalBounds().height / 2);
 	this->textOfButton.setPosition(_buttonPosition);
-	this->textOfButton.setFillColor(sf::Color::Color(13, 100, 150));
+	this->textOfButton.setFillColor(MAIN_COLOR);
 
-	std::cout << "Button initialized" << std::endl;
+	//std::cout << "Button initialized" << std::endl;
 }
 
 Button::~Button()
 {
-	std::cout << "Button destroyed" << std::endl;
+	//std::cout << "Button destroyed" << std::endl;
 }
 
 void Button::setIsSelected(bool _isSelected)
@@ -34,13 +34,13 @@ void Button::setIsSelected(bool _isSelected)
 	this->isSelected = _isSelected;
 	if (_isSelected)
 	{
-		this->buttonShape.setFillColor(sf::Color::Color(13, 100, 150));
+		this->buttonShape.setFillColor(MAIN_COLOR);
 		this->textOfButton.setFillColor(sf::Color::White);
 	}
 	else
 	{
 		this->buttonShape.setFillColor(sf::Color::Transparent);
-		this->textOfButton.setFillColor(sf::Color::Color(13, 100, 150));
+		this->textOfButton.setFillColor(MAIN_COLOR);
 	}
 }
 

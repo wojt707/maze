@@ -88,7 +88,7 @@ void MenuState::draw()
 		std::cout << "Font not loaded" << std::endl;
 	}
 	sf::Text pauseText("Escape the maze", font, 100);
-	pauseText.setFillColor(sf::Color::Color(13, 100, 150));
+	pauseText.setFillColor(MAIN_COLOR);
 	pauseText.setOrigin(pauseText.getGlobalBounds().width / 2, pauseText.getGlobalBounds().height / 2);
 	pauseText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
 

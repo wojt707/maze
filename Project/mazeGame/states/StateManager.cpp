@@ -24,6 +24,15 @@ void StateManager::popState()
 	this->states.pop();
 }
 
+void StateManager::popAllAndChange(std::unique_ptr<State> _state)
+{
+	while (!this->states.empty())
+	{
+		this->popState();
+	}
+	this->pushState(std::move(_state));
+}
+
 void StateManager::changeState(std::unique_ptr<State> _state)
 {
 	if (!this->states.empty())
@@ -31,7 +40,6 @@ void StateManager::changeState(std::unique_ptr<State> _state)
 		this->popState();
 	}
 	this->pushState(std::move(_state));
-
 }
 
 void StateManager::handleInput()

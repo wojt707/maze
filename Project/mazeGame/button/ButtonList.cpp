@@ -8,12 +8,12 @@ ButtonList::ButtonList(float _topButtonYPosition, std::vector<std::string> _text
 		this->buttonList.push_back(std::make_unique<Button>(sf::Vector2f(float(SCREEN_WIDTH / 2), _topButtonYPosition + (BUTTON_HEIGHT + 1) * i), _textsOfButtons[i]));
 	}
 	this->buttonList.at(this->selectedOptionIndex)->setIsSelected(true);
-	std::cout << "Button list initialized" << std::endl;
+	//std::cout << "Button list initialized" << std::endl;
 }
 
 ButtonList::~ButtonList()
 {
-	std::cout << "Button list destroyed" << std::endl;
+	//std::cout << "Button list destroyed" << std::endl;
 }
 
 void ButtonList::selectUp()

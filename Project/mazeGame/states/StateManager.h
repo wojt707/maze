@@ -20,6 +20,7 @@ public:
 
 	void pushState(std::unique_ptr<State> _state);
 	void popState();
+	void popAllAndChange(std::unique_ptr<State> _state);
 	void changeState(std::unique_ptr<State> _state);
 
 
