@@ -4,15 +4,17 @@
 
 #include "StateManager.h"
 #include "GameState.h"
+#include "../resources/ResourceIdentifiers.h"
 #include "../button/ButtonList.h"
 
 class MenuState : public State
 {
 private:
 	ButtonList menuButtons;
+	sf::Text menuText;
 	void handleEnter();
 public:
-	MenuState(StateManager& _stateManager, sf::RenderWindow& _window);
+	MenuState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window);
 	~MenuState();
 
 	void handleInput() override;
@@ -20,4 +22,4 @@ public:
 	void draw() override;
 };
 
-#endif
+#endif // !MENU_STATE_H

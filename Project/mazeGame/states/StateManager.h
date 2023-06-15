@@ -28,7 +28,7 @@ public:
 	void update(sf::Time& _deltaTime);
 	void draw();
 
-	void quit() { this->isRunning = false; }
+	void quit();
 };
 
-#endif
+#endif // !STATE_MANAGER_H

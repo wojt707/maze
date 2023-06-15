@@ -1,9 +1,14 @@
 #include "PauseState.h"
 
-PauseState::PauseState(StateManager& _stateManager, sf::RenderWindow& _window)
-	: State(_stateManager, _window),
-	pauseStateButtons(float(SCREEN_HEIGHT / 2), { "Resume", "Save and go to menu", "How to play", "Quit" })
+PauseState::PauseState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
+	: State(_stateManager, _resourceManager, _window),
+	pauseStateButtons(float(SCREEN_HEIGHT / 2), { "Resume", "Save and go to menu", "How to play", "Quit" }),
+	pauseStateText("Pause", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
 {
+	this->pauseStateText.setFillColor(MAIN_COLOR);
+	this->pauseStateText.setOrigin(this->pauseStateText.getGlobalBounds().width / 2, this->pauseStateText.getGlobalBounds().height / 2);
+	this->pauseStateText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
+
 	std::cout << "PauseState initialized" << std::endl;
 }
 
@@ -22,7 +27,7 @@ void PauseState::handleEnter()
 		return;
 	case 1:
 	{
-		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->window);
+		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->resourceManager, this->window);
 		this->stateManager.popAllAndChange(std::move(menuState));
 		return;
 	}
@@ -80,17 +85,7 @@ void PauseState::draw()
 
 	this->window.clear(sf::Color::Black);
 
-	sf::Font font;
-	if (!font.loadFromFile("Fonts/PTC55F.ttf"))
-	{
-		std::cout << "Font not loaded" << std::endl;
-	}
-	sf::Text pauseText("Pause", font, 100);
-	pauseText.setFillColor(MAIN_COLOR);
-	pauseText.setOrigin(pauseText.getGlobalBounds().width / 2, pauseText.getGlobalBounds().height / 2);
-	pauseText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
-
-	this->window.draw(pauseText);
+	this->window.draw(this->pauseStateText);
 	this->pauseStateButtons.draw(this->window, sf::RenderStates::Default);
 
 	this->window.display();

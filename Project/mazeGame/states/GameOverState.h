@@ -11,9 +11,10 @@ class GameOverState : public State
 {
 private:
 	ButtonList gameOverButtons;
+	sf::Text gameOverText;
 	void handleEnter();
 public:
-	GameOverState(StateManager& _stateManager, sf::RenderWindow& _window);
+	GameOverState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window);
 	~GameOverState();
 
 	void handleInput() override;
@@ -21,5 +22,4 @@ public:
 	void draw() override;
 };
 
-#endif
-
+#endif // !GAME_OVER_STATE_H

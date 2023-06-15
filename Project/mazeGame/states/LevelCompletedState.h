@@ -11,9 +11,10 @@ class LevelCompletedState : public State
 {
 private:
 	ButtonList levelCompletedButtons;
+	sf::Text levelCompletedText;
 	void handleEnter();
 public:
-	LevelCompletedState(StateManager& _stateManager, sf::RenderWindow& _window);
+	LevelCompletedState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window);
 	~LevelCompletedState();
 
 	void handleInput() override;
@@ -21,5 +22,4 @@ public:
 	void draw() override;
 };
 
-#endif
-
+#endif // !LEVEL_COMPLETED_STATE_H

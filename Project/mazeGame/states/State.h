@@ -3,6 +3,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../resources/ResourceManager.h"
 
 class StateManager;
 
@@ -10,10 +11,13 @@ class State
 {
 protected:
 	StateManager& stateManager;
+	ResourceManager& resourceManager;
 	sf::RenderWindow& window;
 public:
-	State(StateManager& _stateManager, sf::RenderWindow& _window)
-		: stateManager(_stateManager), window(_window) { }
+	State(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
+		: stateManager(_stateManager),
+		resourceManager(_resourceManager),
+		window(_window) { }
 	virtual ~State() { }
 
 	//virtual void init() = 0;
@@ -24,4 +28,4 @@ public:
 	//virtual void resume() = 0;
 };
 
-#endif
+#endif // !STATE_H

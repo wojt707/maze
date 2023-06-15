@@ -5,10 +5,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "states/StateManager.h"
-#include "states/GameState.h"
 #include "states/MenuState.h"
-#include "Maze.h"
-#include "Player.h"
+#include "resources/ResourceManager.h"
 #include "Constants.h"
 
 class Game
@@ -16,8 +14,10 @@ class Game
 private:
 	sf::RenderWindow window;
 	StateManager stateManager;
+	ResourceManager resourceManager;
 public:
+	Game();
 	void run();
 };
 
-#endif
+#endif // !GAME_H

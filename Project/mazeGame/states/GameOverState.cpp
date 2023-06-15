@@ -1,10 +1,14 @@
 #include "GameOverState.h"
 
-
-GameOverState::GameOverState(StateManager& _stateManager, sf::RenderWindow& _window)
-	:State(_stateManager, _window),
-	gameOverButtons(float(SCREEN_HEIGHT / 2), { "Restart", "Save and go to menu", "Quit" })
+GameOverState::GameOverState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
+	:State(_stateManager, _resourceManager, _window),
+	gameOverButtons(float(SCREEN_HEIGHT / 2), { "Restart", "Save and go to menu", "Quit" }),
+	gameOverText("Game over", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
 {
+	this->gameOverText.setFillColor(MAIN_COLOR);
+	this->gameOverText.setOrigin(this->gameOverText.getGlobalBounds().width / 2, this->gameOverText.getGlobalBounds().height / 2);
+	this->gameOverText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
+
 	std::cout << "GameOverState initialized" << std::endl;
 }
 
@@ -21,13 +25,13 @@ void GameOverState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->window);
+		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window);
 		this->stateManager.popAllAndChange(std::move(gameState));
 		return;
 	}
 	case 1:
 	{
-		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->window);
+		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->resourceManager, this->window);
 		this->stateManager.popAllAndChange(std::move(menuState));
 		return;
 	}
@@ -79,20 +83,9 @@ void GameOverState::update(sf::Time& _deltaTime)
 
 void GameOverState::draw()
 {
-
 	this->window.clear(sf::Color::Black);
 
-	sf::Font font;
-	if (!font.loadFromFile("Fonts/PTC55F.ttf"))
-	{
-		std::cout << "Font not loaded" << std::endl;
-	}
-	sf::Text tempText("Game Over", font, 100);
-	tempText.setFillColor(MAIN_COLOR);
-	tempText.setOrigin(tempText.getGlobalBounds().width / 2, tempText.getGlobalBounds().height / 2);
-	tempText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
-
-	this->window.draw(tempText);
+	this->window.draw(this->gameOverText);
 	this->gameOverButtons.draw(this->window, sf::RenderStates::Default);
 
 	this->window.display();

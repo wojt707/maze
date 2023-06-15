@@ -1,10 +1,14 @@
 #include "MenuState.h"
 
-MenuState::MenuState(StateManager& _stateManager, sf::RenderWindow& _window)
-	: State(_stateManager, _window),
-	menuButtons(float(SCREEN_HEIGHT / 2), { "Play", "Load game save", "How to play", "Author", "Quit" })
-
+MenuState::MenuState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
+	: State(_stateManager, _resourceManager, _window),
+	menuButtons(float(SCREEN_HEIGHT / 2), { "Play", "Load game save", "How to play", "Author", "Quit" }),
+	menuText("Escape the maze", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
 {
+	this->menuText.setFillColor(MAIN_COLOR);
+	this->menuText.setOrigin(this->menuText.getGlobalBounds().width / 2, this->menuText.getGlobalBounds().height / 2);
+	this->menuText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
+
 	std::cout << "MenuState initialized" << std::endl;
 }
 
@@ -20,7 +24,7 @@ void MenuState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->window);
+		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window);
 		this->stateManager.changeState(std::move(gameState));
 		return;
 	}
@@ -79,21 +83,10 @@ void MenuState::update(sf::Time& _deltaTime)
 
 void MenuState::draw()
 {
-
 	this->window.clear(sf::Color::Black);
 
-	sf::Font font;
-	if (!font.loadFromFile("Fonts/PTC55F.ttf"))
-	{
-		std::cout << "Font not loaded" << std::endl;
-	}
-	sf::Text pauseText("Escape the maze", font, 100);
-	pauseText.setFillColor(MAIN_COLOR);
-	pauseText.setOrigin(pauseText.getGlobalBounds().width / 2, pauseText.getGlobalBounds().height / 2);
-	pauseText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
-
-	this->window.draw(pauseText);
+	this->window.draw(this->menuText);
 	this->menuButtons.draw(this->window, sf::RenderStates::Default);
-
+	
 	this->window.display();
 }

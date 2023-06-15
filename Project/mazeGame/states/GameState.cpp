@@ -1,7 +1,7 @@
 #include "GameState.h"
 
-GameState::GameState(StateManager& _stateManager, sf::RenderWindow& _window)
-	: State(_stateManager, _window),
+GameState::GameState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
+	: State(_stateManager, _resourceManager, _window),
 	maze(15, 9),
 	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 100.0f)
 {
@@ -25,14 +25,14 @@ void GameState::handleInput()
 			break;
 		case sf::Event::LostFocus:
 		{
-			std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->window);
+			std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->resourceManager, this->window);
 			this->stateManager.pushState(std::move(pauseState));
 			return;
 		}
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 			case sf::Keyboard::Escape:
-				std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->window);
+				std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->resourceManager, this->window);
 				this->stateManager.pushState(std::move(pauseState));
 				return;
 			}

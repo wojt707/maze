@@ -156,6 +156,7 @@
     <ClCompile Include="button\ButtonList.cpp" />
     <ClCompile Include="button\Button.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="resources\ResourceManager.cpp" />
     <ClCompile Include="states\GameOverState.cpp" />
     <ClCompile Include="states\LevelCompletedState.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -174,6 +175,9 @@
     <ClInclude Include="button\Button.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="resources\ResourceManager.h" />
+    <ClInclude Include="resources\Resource.h" />
+    <ClInclude Include="resources\ResourceIdentifiers.h" />
     <ClInclude Include="states\GameOverState.h" />
     <ClInclude Include="states\LevelCompletedState.h" />
     <ClInclude Include="Maze.h" />

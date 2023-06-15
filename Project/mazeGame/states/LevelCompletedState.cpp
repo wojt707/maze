@@ -1,10 +1,15 @@
 #include "LevelCompletedState.h"
 
 
-LevelCompletedState::LevelCompletedState(StateManager& _stateManager, sf::RenderWindow& _window)
-	:State(_stateManager, _window),
-	levelCompletedButtons(float(SCREEN_HEIGHT / 2), { "Next level", "Save and go to menu", "Quit" })
+LevelCompletedState::LevelCompletedState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
+	:State(_stateManager, _resourceManager, _window),
+	levelCompletedButtons(float(SCREEN_HEIGHT / 2), { "Next level", "Save and go to menu", "Quit" }),
+	levelCompletedText("Level completed", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
 {
+	this->levelCompletedText.setFillColor(MAIN_COLOR);
+	this->levelCompletedText.setOrigin(this->levelCompletedText.getGlobalBounds().width / 2, this->levelCompletedText.getGlobalBounds().height / 2);
+	this->levelCompletedText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
+
 	std::cout << "LevelCompletedState initialized" << std::endl;
 }
 
@@ -21,13 +26,13 @@ void LevelCompletedState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> nextGameState = std::make_unique<GameState>(this->stateManager, this->window);
+		std::unique_ptr<State> nextGameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window);
 		this->stateManager.popAllAndChange(std::move(nextGameState));
 		return;
 	}
 	case 1:
 	{
-		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->window);
+		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->resourceManager, this->window);
 		this->stateManager.popAllAndChange(std::move(menuState));
 		return;
 	}
@@ -51,9 +56,9 @@ void LevelCompletedState::handleInput()
 		case sf::Event::KeyPressed:
 			switch (event.key.code)
 			{
-			//case sf::Keyboard::Escape:
-			//	this->stateManager.popState();
-			//	return;
+				//case sf::Keyboard::Escape:
+				//	this->stateManager.popState();
+				//	return;
 			case sf::Keyboard::Up:
 				this->levelCompletedButtons.selectUp();
 				break;
@@ -82,17 +87,7 @@ void LevelCompletedState::draw()
 
 	this->window.clear(sf::Color::Black);
 
-	sf::Font font;
-	if (!font.loadFromFile("Fonts/PTC55F.ttf"))
-	{
-		std::cout << "Font not loaded" << std::endl;
-	}
-	sf::Text tempText("Level completed", font, 100);
-	tempText.setFillColor(MAIN_COLOR);
-	tempText.setOrigin(tempText.getGlobalBounds().width / 2, tempText.getGlobalBounds().height / 2);
-	tempText.setPosition(float(SCREEN_WIDTH / 2), float(SCREEN_HEIGHT / 4));
-
-	this->window.draw(tempText);
+	this->window.draw(this->levelCompletedText);
 	this->levelCompletedButtons.draw(this->window, sf::RenderStates::Default);
 
 	this->window.display();

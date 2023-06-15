@@ -56,3 +56,8 @@ void StateManager::draw()
 {
 	this->states.top()->draw();
 }
+
+void StateManager::quit()
+{
+	this->isRunning = false;
+}

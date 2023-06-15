@@ -14,11 +14,11 @@ private:
 	Player player;
 	Maze maze;
 public:
-	GameState(StateManager& _stateManager, sf::RenderWindow& _window);
+	GameState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window);
 	~GameState();
 	void handleInput() override;
 	void update(sf::Time& _deltaTime) override;
 	void draw() override;
 };
 
-#endif
+#endif // !GAME_STATE_H
