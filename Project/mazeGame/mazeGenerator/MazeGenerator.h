@@ -9,8 +9,6 @@
 
 #include "Cell.h"
 #include "Wall.h"
-#include "../Player.h"
-#include "../Constants.h"
 
 class MazeGenerator
 {
@@ -26,8 +24,14 @@ private:
 	void createWalls();
 	void shuffleWalls();
 public:
-	MazeGenerator(unsigned  int _cols = 8, unsigned int _rows = 8);
+	MazeGenerator(unsigned  int _mapWidth, unsigned int _mapHeight);
+	// TODO (maybe)
+	// Delete the copy constructor
+	//MazeGenerator(const MazeGenerator&) = delete;
+	// Delete the copy assignment operator
+	//MazeGenerator& operator=(const MazeGenerator&) = delete;
+
 	std::unique_ptr<bool[]> createMap();
 };
 
-#endif
+#endif // !MAZE_GENERATOR_H

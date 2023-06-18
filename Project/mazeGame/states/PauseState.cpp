@@ -3,7 +3,7 @@
 PauseState::PauseState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
 	: State(_stateManager, _resourceManager, _window),
 	pauseStateButtons(float(SCREEN_HEIGHT / 2), { "Resume", "Save and go to menu", "How to play", "Quit" }),
-	pauseStateText("Pause", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
+	pauseStateText("Pause", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
 {
 	this->pauseStateText.setFillColor(MAIN_COLOR);
 	this->pauseStateText.setOrigin(this->pauseStateText.getGlobalBounds().width / 2, this->pauseStateText.getGlobalBounds().height / 2);

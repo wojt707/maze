@@ -1,12 +1,15 @@
 #include "MazeGenerator.h"
 
-MazeGenerator::MazeGenerator(unsigned  int _cols, unsigned int _rows)
-	: rows(_rows), cols(_cols), mapWidth(2 * _cols + 1), mapHeight(2 * _rows + 1)
+MazeGenerator::MazeGenerator(unsigned  int _mapWidth, unsigned int _mapHeight)
+	: rows((_mapHeight - 1) / 2),
+	cols((_mapWidth - 1) / 2),
+	mapWidth(_mapWidth),
+	mapHeight(_mapHeight)
 {
-	for (unsigned int r = 0; r < _rows; r++)
+	for (unsigned int r = 0; r < this->rows; r++)
 	{
 		std::vector<Cell> row;
-		for (unsigned int c = 0; c < _cols; c++)
+		for (unsigned int c = 0; c < this->cols; c++)
 			row.push_back(Cell());
 
 		this->cells.push_back(row);

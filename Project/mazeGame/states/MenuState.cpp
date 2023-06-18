@@ -3,7 +3,7 @@
 MenuState::MenuState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
 	: State(_stateManager, _resourceManager, _window),
 	menuButtons(float(SCREEN_HEIGHT / 2), { "Play", "Load game save", "How to play", "Author", "Quit" }),
-	menuText("Escape the maze", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
+	menuText("Escape the maze", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
 {
 	this->menuText.setFillColor(MAIN_COLOR);
 	this->menuText.setOrigin(this->menuText.getGlobalBounds().width / 2, this->menuText.getGlobalBounds().height / 2);
@@ -24,7 +24,7 @@ void MenuState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window);
+		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window, 1);
 		this->stateManager.changeState(std::move(gameState));
 		return;
 	}
@@ -87,6 +87,6 @@ void MenuState::draw()
 
 	this->window.draw(this->menuText);
 	this->menuButtons.draw(this->window, sf::RenderStates::Default);
-	
+
 	this->window.display();
 }

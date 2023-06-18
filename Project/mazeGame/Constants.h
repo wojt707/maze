@@ -14,13 +14,13 @@ constexpr float PLAYER_DISPLACEMENT_RATE = 0.01f;
 constexpr float BUTTON_WIDTH = 500.0f;
 constexpr float BUTTON_HEIGHT = 80.0f;
 
-constexpr unsigned int CELL_SIZE = 80;
+constexpr float CELL_SIZE = 80.0f;
 
-constexpr unsigned int MIN_MAP_SIZE = 9;
+constexpr unsigned int MIN_MAP_SIZE = 7;
 
 constexpr unsigned int SCREEN_WIDTH = 1600;
 constexpr unsigned int SCREEN_HEIGHT = 800;
 
 const sf::Color MAIN_COLOR(13, 100, 150);
 
-#endif
+#endif // !CONSTANTS_H

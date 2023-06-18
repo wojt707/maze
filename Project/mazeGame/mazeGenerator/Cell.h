@@ -14,6 +14,12 @@ private:
 
 public:
 	Cell();
+	// TODO (maybe)
+	// Delete the copy constructor
+	//Cell(const Cell&) = delete;
+
+	// Delete the copy assignment operator
+	//Cell& operator=(const Cell&) = delete;
 	void init();
 
 	void joinCell(Cell& another);
@@ -26,4 +32,4 @@ public:
 	void destroyBottomWall();
 };
 
-#endif
+#endif // !CELL_H

@@ -17,13 +17,23 @@ private:
 	std::unique_ptr<bool[]> map;
 
 	sf::RectangleShape mapCell;
+	sf::Vector2f startingCellPosition;
+	sf::Vector2f endingCellPosition;
+
+	bool mapAt(unsigned int x, unsigned int y);
 
 public:
 	Maze(unsigned int _mapWidth = MIN_MAP_SIZE, unsigned  int _mapHeight = MIN_MAP_SIZE);
+	// TODO rethink if delete it or not	
 
-	void draw(sf::RenderWindow& _window);
-	bool mapAt(unsigned int x, unsigned int y);
+	// Delete the copy constructor
+	Maze(const Maze&) = delete;
+	// Delete the copy assignment operator
+	Maze& operator=(const Maze&) = delete;
+
+	bool isLevelFinished(Player& _player);
 	void handleCollisions(Player& _player);
+	void draw(sf::RenderWindow& _window);
 };
 
-#endif
+#endif // !MAZE_H

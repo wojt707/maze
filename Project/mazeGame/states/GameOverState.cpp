@@ -3,7 +3,7 @@
 GameOverState::GameOverState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
 	:State(_stateManager, _resourceManager, _window),
 	gameOverButtons(float(SCREEN_HEIGHT / 2), { "Restart", "Save and go to menu", "Quit" }),
-	gameOverText("Game over", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
+	gameOverText("Game over", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
 {
 	this->gameOverText.setFillColor(MAIN_COLOR);
 	this->gameOverText.setOrigin(this->gameOverText.getGlobalBounds().width / 2, this->gameOverText.getGlobalBounds().height / 2);
@@ -25,7 +25,7 @@ void GameOverState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window);
+		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window, 1);
 		this->stateManager.popAllAndChange(std::move(gameState));
 		return;
 	}

@@ -18,6 +18,7 @@ public:
 	Player(sf::Vector2f _position, float _displacementRate);
 
 	sf::Vector2f getPosition();
+	sf::Vector2f getOrigin();
 	sf::FloatRect getGlobalBounds();
 	void setPosition(sf::Vector2f _position);
 	void setPosition(float x, float y);
@@ -28,4 +29,4 @@ public:
 
 };
 
-#endif
+#endif // !PLAYER_H

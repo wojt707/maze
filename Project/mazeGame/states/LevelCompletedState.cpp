@@ -1,10 +1,16 @@
 #include "LevelCompletedState.h"
 
-
-LevelCompletedState::LevelCompletedState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
+LevelCompletedState::LevelCompletedState(
+	StateManager& _stateManager,
+	ResourceManager& _resourceManager,
+	sf::RenderWindow& _window,
+	std::unique_ptr<std::future<std::unique_ptr<Maze>>> _nextLevelMaze,
+	int _completedLevel)
 	:State(_stateManager, _resourceManager, _window),
 	levelCompletedButtons(float(SCREEN_HEIGHT / 2), { "Next level", "Save and go to menu", "Quit" }),
-	levelCompletedText("Level completed", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT).get()), 100)
+	levelCompletedText("Level completed", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100),
+	nextLevelMaze(std::move(_nextLevelMaze)),
+	completedLevel(_completedLevel)
 {
 	this->levelCompletedText.setFillColor(MAIN_COLOR);
 	this->levelCompletedText.setOrigin(this->levelCompletedText.getGlobalBounds().width / 2, this->levelCompletedText.getGlobalBounds().height / 2);
@@ -26,7 +32,7 @@ void LevelCompletedState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> nextGameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window);
+		std::unique_ptr<State> nextGameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window, std::move(this->nextLevelMaze->get()), this->completedLevel + 1);
 		this->stateManager.popAllAndChange(std::move(nextGameState));
 		return;
 	}

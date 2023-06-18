@@ -93,6 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\lib\SFML-2.5.1-windows-vc15-64-bit\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +127,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\lib\SFML-2.5.1-windows-vc15-64-bit\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +159,7 @@
     <ClCompile Include="button\Button.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="resources\ResourceManager.cpp" />
+    <ClCompile Include="SaveManager.cpp" />
     <ClCompile Include="states\GameOverState.cpp" />
     <ClCompile Include="states\LevelCompletedState.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -178,6 +181,7 @@
     <ClInclude Include="resources\ResourceManager.h" />
     <ClInclude Include="resources\Resource.h" />
     <ClInclude Include="resources\ResourceIdentifiers.h" />
+    <ClInclude Include="SaveManager.h" />
     <ClInclude Include="states\GameOverState.h" />
     <ClInclude Include="states\LevelCompletedState.h" />
     <ClInclude Include="Maze.h" />

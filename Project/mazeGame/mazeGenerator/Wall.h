@@ -16,10 +16,15 @@ private:
 public:
 
 	Wall(Cell& _firstCell, Cell& _secondCell, bool _isHorizontal);
+	// TODO (maybe)
+	// Delete the copy constructor
+	//Wall(const Wall&) = delete;
+	// Delete the copy assignment operator
+	//Wall& operator=(const Wall&) = delete;
 
 	bool isBetweenConnectedCells();
 	void joinCells();
 	void remove();
 };
 
-#endif
+#endif // !WALL_H

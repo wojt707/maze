@@ -16,6 +16,11 @@ sf::Vector2f Player::getPosition()
 	return this->shape.getPosition();
 }
 
+sf::Vector2f Player::getOrigin()
+{
+	return this->shape.getOrigin();
+}
+
 sf::FloatRect Player::getGlobalBounds()
 {
 	return this->shape.getGlobalBounds();
@@ -48,6 +53,19 @@ void Player::handleInput()
 		this->displacement.x = -this->displacementRate * cos(this->angle);
 		this->displacement.y = this->displacementRate * sin(this->angle);
 	}
+	// TODO what the heck is this below?
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//{
+	//	this->displacement.x = this->displacementRate * cos(this->angle + HALF_OF_PI/2);
+	//	this->displacement.y = -this->displacementRate * sin(this->angle + HALF_OF_PI/2);
+
+	//}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	//{
+	//	this->displacement.x = this->displacementRate * cos(this->angle - HALF_OF_PI/2);
+	//	this->displacement.y = -this->displacementRate * sin(this->angle - HALF_OF_PI/2);
+
+	//}
 	else
 	{
 		this->displacement.x = 0.0f;
