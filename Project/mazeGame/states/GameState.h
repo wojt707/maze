@@ -11,10 +11,12 @@
 #include "../Maze.h"
 #include "../Player.h"
 #include "../Constants.h"
+#include "../ViewHandler.h"
 
 class GameState : public State
 {
 private:
+	ViewHandler viewHandler;
 	std::unique_ptr<Maze> maze;
 	Player player;
 	int level;

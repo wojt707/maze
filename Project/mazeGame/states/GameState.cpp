@@ -5,6 +5,7 @@ GameState::GameState(StateManager& _stateManager, ResourceManager& _resourceMana
 	// For now squared map are created
 	// e.g. level 1 -> map 7x7, level 2 -> map 9x9, level 3 -> map 11x11
 	// TODO maybe creating not only square maps
+	//viewHandler((MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE, (MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE),
 	maze(std::make_unique<Maze>(MIN_MAP_SIZE + (_level - 1) * 2, MIN_MAP_SIZE + (_level - 1) * 2)),
 	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 200.0f),
 	level(_level),
@@ -19,6 +20,7 @@ GameState::GameState(StateManager& _stateManager, ResourceManager& _resourceMana
 
 GameState::GameState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window, std::unique_ptr<Maze> _previouslyGeneratedMaze, int _level)
 	: State(_stateManager, _resourceManager, _window),
+	//viewHandler((MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE, (MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE),
 	maze(std::move(_previouslyGeneratedMaze)),
 	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 200.0f),
 	level(_level),
@@ -46,12 +48,14 @@ std::unique_ptr<std::future<std::unique_ptr<Maze>>> GameState::generateNextLevel
 
 void GameState::finishLevel()
 {
+	this->viewHandler.resetViewAt(this->window);
 	std::unique_ptr<State> levelCompletedState = std::make_unique<LevelCompletedState>(this->stateManager, this->resourceManager, this->window, std::move(this->nextLevelMaze), this->level);
 	this->stateManager.pushState(std::move(levelCompletedState));
 }
 
 void GameState::failLevel()
 {
+	this->viewHandler.resetViewAt(this->window);
 	std::unique_ptr<State> levelFailedState = std::make_unique<GameOverState>(this->stateManager, this->resourceManager, this->window);
 	this->stateManager.changeState(std::move(levelFailedState));
 }
@@ -68,6 +72,7 @@ void GameState::handleInput()
 			break;
 		case sf::Event::LostFocus:
 		{
+			this->viewHandler.resetViewAt(this->window);
 			std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->resourceManager, this->window);
 			this->stateManager.pushState(std::move(pauseState));
 			return;
@@ -75,6 +80,7 @@ void GameState::handleInput()
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 			case sf::Keyboard::Escape:
+				this->viewHandler.resetViewAt(this->window);
 				std::unique_ptr<State> pauseState = std::make_unique<PauseState>(this->stateManager, this->resourceManager, this->window);
 				this->stateManager.pushState(std::move(pauseState));
 				return;
@@ -92,6 +98,10 @@ void GameState::update(sf::Time& _deltaTime)
 	this->player.update(_deltaTime);
 
 	this->maze->handleCollisions(this->player);
+
+	this->viewHandler.updateRelativeTo(this->player, _deltaTime);
+
+	this->viewHandler.setViewAt(this->window);
 
 	if (this->maze->isLevelFinished(this->player))
 		this->finishLevel();

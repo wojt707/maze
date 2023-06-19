@@ -21,6 +21,9 @@ constexpr unsigned int MIN_MAP_SIZE = 7;
 constexpr unsigned int SCREEN_WIDTH = 1600;
 constexpr unsigned int SCREEN_HEIGHT = 800;
 
+constexpr float MAX_VIEW_DISTANCE_FROM_WINDOW_EDGES = 95.0f;
+//constexpr unsigned int MAX_VIEW_DISTANCE_FROM_WINDOW_EDGES = 300;
+
 const sf::Color MAIN_COLOR(13, 100, 150);
 
 #endif // !CONSTANTS_H

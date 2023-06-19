@@ -16,16 +16,6 @@ sf::Vector2f Player::getPosition()
 	return this->shape.getPosition();
 }
 
-sf::Vector2f Player::getOrigin()
-{
-	return this->shape.getOrigin();
-}
-
-sf::FloatRect Player::getGlobalBounds()
-{
-	return this->shape.getGlobalBounds();
-}
-
 void Player::setPosition(sf::Vector2f _position)
 {
 	this->shape.setPosition(_position);
@@ -34,6 +24,21 @@ void Player::setPosition(sf::Vector2f _position)
 void Player::setPosition(float x, float y)
 {
 	this->shape.setPosition(x, y);
+}
+
+sf::Vector2f Player::getOrigin()
+{
+	return this->shape.getOrigin();
+}
+
+sf::Vector2f Player::getDisplacement()
+{
+	return this->displacement;
+}
+
+sf::FloatRect Player::getGlobalBounds()
+{
+	return this->shape.getGlobalBounds();
 }
 
 void Player::handleInput()
@@ -73,7 +78,7 @@ void Player::handleInput()
 	}
 }
 
-void Player::update(sf::Time _deltaTime)
+void Player::update(sf::Time& _deltaTime)
 {
 	this->angle = fmod(fmod(this->angle, TWO_PI) + TWO_PI, TWO_PI);
 

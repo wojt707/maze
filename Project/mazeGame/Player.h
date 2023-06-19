@@ -18,13 +18,15 @@ public:
 	Player(sf::Vector2f _position, float _displacementRate);
 
 	sf::Vector2f getPosition();
-	sf::Vector2f getOrigin();
-	sf::FloatRect getGlobalBounds();
 	void setPosition(sf::Vector2f _position);
 	void setPosition(float x, float y);
+	
+	sf::Vector2f getOrigin();
+	sf::Vector2f getDisplacement();
+	sf::FloatRect getGlobalBounds();
 
 	void handleInput();
-	void update(sf::Time _deltaTime);
+	void update(sf::Time& _deltaTime);
 	void draw(sf::RenderWindow& _window);
 
 };

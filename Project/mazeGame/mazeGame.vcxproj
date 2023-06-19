@@ -172,6 +172,7 @@
     <ClCompile Include="states\MenuState.cpp" />
     <ClCompile Include="states\PauseState.cpp" />
     <ClCompile Include="states\StateManager.cpp" />
+    <ClCompile Include="ViewHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="button\ButtonList.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="states\PauseState.h" />
     <ClInclude Include="states\State.h" />
     <ClInclude Include="states\StateManager.h" />
+    <ClInclude Include="ViewHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
