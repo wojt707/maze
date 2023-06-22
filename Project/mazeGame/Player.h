@@ -3,6 +3,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <cmath>
 #include <iostream>
 
 #include "Constants.h"
@@ -23,6 +25,7 @@ public:
 	
 	sf::Vector2f getOrigin();
 	sf::Vector2f getDisplacement();
+	float getAngle();
 	sf::FloatRect getGlobalBounds();
 
 	void handleInput();

@@ -14,7 +14,7 @@ class Maze
 private:
 	unsigned int mapWidth;
 	unsigned int mapHeight;
-	std::unique_ptr<bool[]> map;
+	std::shared_ptr<bool[]> map;
 
 	sf::RectangleShape mapCell;
 	sf::Vector2f startingCellPosition;
@@ -30,6 +30,10 @@ public:
 	Maze(const Maze&) = delete;
 	// Delete the copy assignment operator
 	Maze& operator=(const Maze&) = delete;
+
+	unsigned int getMapWidth();
+	unsigned int getMapHeight();
+	std::shared_ptr<bool[]> getMap();
 
 	bool isLevelFinished(Player& _player);
 	void handleCollisions(Player& _player);

@@ -2,7 +2,13 @@
 #define GAME_OVER_STATE_H
 #pragma once
 
-#include "StateManager.h"
+#include <memory>
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
+#include "State.h"
+#include "../GameData.h"
+#include "../Constants.h"
 #include "GameState.h"
 #include "MenuState.h"
 #include "../button/ButtonList.h"
@@ -14,7 +20,7 @@ private:
 	sf::Text gameOverText;
 	void handleEnter();
 public:
-	GameOverState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window);
+	GameOverState(GameData& _data);
 	~GameOverState();
 
 	void handleInput() override;

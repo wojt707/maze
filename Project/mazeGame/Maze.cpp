@@ -1,5 +1,4 @@
 #include "Maze.h"
-#include <Windows.h>
 
 Maze::Maze(unsigned int _mapWidth, unsigned int _mapHeight)
 	: mapCell(sf::Vector2f(CELL_SIZE, CELL_SIZE))
@@ -21,6 +20,21 @@ Maze::Maze(unsigned int _mapWidth, unsigned int _mapHeight)
 bool Maze::mapAt(unsigned int x, unsigned int y)
 {
 	return this->map[y * this->mapWidth + x];
+}
+
+unsigned int Maze::getMapWidth()
+{
+	return this->mapWidth;
+}
+
+unsigned int Maze::getMapHeight()
+{
+	return this->mapHeight;
+}
+
+std::shared_ptr<bool[]> Maze::getMap()
+{
+	return this->map;
 }
 
 bool Maze::isLevelFinished(Player& _player)

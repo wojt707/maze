@@ -2,8 +2,9 @@
 #define BUTTON_H
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <SFML/Graphics.hpp>
+
 #include "../Constants.h"
 
 

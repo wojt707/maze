@@ -4,6 +4,9 @@
 
 #include <vector>
 #include <iostream>
+#include <SFML/Graphics.hpp>
+ 
+#include "../Constants.h"
 #include "Button.h"
 
 class ButtonList : public sf::Drawable

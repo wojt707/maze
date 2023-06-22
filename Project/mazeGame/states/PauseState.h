@@ -2,19 +2,28 @@
 #define PAUSE_STATE_H
 #pragma once
 
-#include "StateManager.h"
-#include "../resources/ResourceManager.h"
+#include <iostream>
+#include <memory>
+#include <SFML/Graphics.hpp>
+
+#include "State.h"
+#include "../GameData.h"
+#include "../Constants.h"
 #include "MenuState.h"
 #include "../button/ButtonList.h"
+#include "../SaveableData.h"
 
 class PauseState : public State
 {
 private:
 	ButtonList pauseStateButtons;
 	sf::Text pauseStateText;
+
+	std::shared_ptr<SaveableData> saveableData;
+
 	void handleEnter();
 public:
-	PauseState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window);
+	PauseState(GameData& _data, std::shared_ptr<SaveableData> _saveableData);
 	~PauseState();
 
 	void handleInput() override;

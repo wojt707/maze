@@ -1,14 +1,13 @@
 #include "LevelCompletedState.h"
 
-LevelCompletedState::LevelCompletedState(
-	StateManager& _stateManager,
-	ResourceManager& _resourceManager,
-	sf::RenderWindow& _window,
+LevelCompletedState::LevelCompletedState(GameData& _data,
+	std::shared_ptr<SaveableData> _saveableData,
 	std::unique_ptr<std::future<std::unique_ptr<Maze>>> _nextLevelMaze,
 	int _completedLevel)
-	:State(_stateManager, _resourceManager, _window),
+	:State(_data),
 	levelCompletedButtons(float(SCREEN_HEIGHT / 2), { "Next level", "Save and go to menu", "Quit" }),
-	levelCompletedText("Level completed", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100),
+	levelCompletedText("Level completed", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100),
+	saveableData(_saveableData),
 	nextLevelMaze(std::move(_nextLevelMaze)),
 	completedLevel(_completedLevel)
 {
@@ -32,18 +31,19 @@ void LevelCompletedState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> nextGameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window, std::move(this->nextLevelMaze->get()), this->completedLevel + 1);
-		this->stateManager.popAllAndChange(std::move(nextGameState));
+		std::unique_ptr<State> nextGameState = std::make_unique<GameState>(this->data, std::move(this->nextLevelMaze->get()), this->completedLevel + 1);
+		this->data.stateManager.popAllAndChange(std::move(nextGameState));
 		return;
 	}
 	case 1:
 	{
-		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->resourceManager, this->window);
-		this->stateManager.popAllAndChange(std::move(menuState));
+		this->data.saveManager.saveToFile(this->saveableData);
+		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->data);
+		this->data.stateManager.popAllAndChange(std::move(menuState));
 		return;
 	}
 	case 2:
-		this->stateManager.quit();
+		this->data.stateManager.quit();
 		return;
 	}
 }
@@ -52,12 +52,12 @@ void LevelCompletedState::handleInput()
 {
 	sf::Event event;
 
-	while (this->window.pollEvent(event))
+	while (this->data.window.pollEvent(event))
 	{
 		switch (event.type)
 		{
 		case sf::Event::Closed:
-			this->stateManager.quit();
+			this->data.stateManager.quit();
 			break;
 		case sf::Event::KeyPressed:
 			switch (event.key.code)
@@ -91,10 +91,10 @@ void LevelCompletedState::update(sf::Time& _deltaTime)
 void LevelCompletedState::draw()
 {
 
-	this->window.clear(sf::Color::Black);
+	this->data.window.clear(sf::Color::Black);
 
-	this->window.draw(this->levelCompletedText);
-	this->levelCompletedButtons.draw(this->window, sf::RenderStates::Default);
+	this->data.window.draw(this->levelCompletedText);
+	this->levelCompletedButtons.draw(this->data.window, sf::RenderStates::Default);
 
-	this->window.display();
+	this->data.window.display();
 }

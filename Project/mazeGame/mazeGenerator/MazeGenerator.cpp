@@ -74,9 +74,9 @@ void MazeGenerator::shuffleWalls()
 	this->walls = std::move(shuffledWalls);
 }
 
-std::unique_ptr<bool[]> MazeGenerator::createMap()
+std::shared_ptr<bool[]> MazeGenerator::createMap()
 {
-	std::unique_ptr<bool[]> map = std::make_unique<bool[]>(this->mapHeight * this->mapWidth);
+	std::shared_ptr<bool[]> map = std::make_shared<bool[]>(this->mapHeight * this->mapWidth);
 	std::fill(map.get(), map.get() + this->mapHeight * this->mapWidth, true);
 
 	for (unsigned int r = 0; r < this->rows; r++)
@@ -92,5 +92,5 @@ std::unique_ptr<bool[]> MazeGenerator::createMap()
 				map[(2 * r + 2) * this->mapWidth + (2 * c + 1)] = false;
 		}
 	}
-	return std::move(map);
+	return map;
 }

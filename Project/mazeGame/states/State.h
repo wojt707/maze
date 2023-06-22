@@ -2,22 +2,17 @@
 #define STATE_H
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "../resources/ResourceManager.h"
+#include <SFML/System.hpp>
 
-class StateManager;
+class GameData;
 
 class State
 {
 protected:
-	StateManager& stateManager;
-	ResourceManager& resourceManager;
-	sf::RenderWindow& window;
+	GameData& data;
 public:
-	State(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
-		: stateManager(_stateManager),
-		resourceManager(_resourceManager),
-		window(_window) { }
+	State(GameData& _data)
+		: data(_data) { }
 	virtual ~State() { }
 
 	//virtual void init() = 0;

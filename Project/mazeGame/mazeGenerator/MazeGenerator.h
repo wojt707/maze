@@ -31,7 +31,7 @@ public:
 	// Delete the copy assignment operator
 	//MazeGenerator& operator=(const MazeGenerator&) = delete;
 
-	std::unique_ptr<bool[]> createMap();
+	std::shared_ptr<bool[]> createMap();
 };
 
 #endif // !MAZE_GENERATOR_H

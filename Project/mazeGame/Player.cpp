@@ -36,6 +36,11 @@ sf::Vector2f Player::getDisplacement()
 	return this->displacement;
 }
 
+float Player::getAngle()
+{
+	return this->angle;
+}
+
 sf::FloatRect Player::getGlobalBounds()
 {
 	return this->shape.getGlobalBounds();

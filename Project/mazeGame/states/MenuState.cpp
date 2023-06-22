@@ -1,9 +1,9 @@
 #include "MenuState.h"
 
-MenuState::MenuState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
-	: State(_stateManager, _resourceManager, _window),
+MenuState::MenuState(GameData& _data)
+	: State(_data),
 	menuButtons(float(SCREEN_HEIGHT / 2), { "Play", "Load game save", "How to play", "Author", "Quit" }),
-	menuText("Escape the maze", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
+	menuText("Escape the maze", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
 {
 	this->menuText.setFillColor(MAIN_COLOR);
 	this->menuText.setOrigin(this->menuText.getGlobalBounds().width / 2, this->menuText.getGlobalBounds().height / 2);
@@ -24,8 +24,8 @@ void MenuState::handleEnter()
 	{
 	case 0:
 	{
-		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->stateManager, this->resourceManager, this->window, 1);
-		this->stateManager.changeState(std::move(gameState));
+		std::unique_ptr<State> gameState = std::make_unique<GameState>(this->data, 1);
+		this->data.stateManager.changeState(std::move(gameState));
 		return;
 	}
 	case 1:
@@ -35,7 +35,7 @@ void MenuState::handleEnter()
 	case 3:
 		return;
 	case 4:
-		this->stateManager.quit();
+		this->data.stateManager.quit();
 		return;
 	}
 }
@@ -44,18 +44,18 @@ void MenuState::handleInput()
 {
 	sf::Event event;
 
-	while (this->window.pollEvent(event))
+	while (this->data.window.pollEvent(event))
 	{
 		switch (event.type)
 		{
 		case sf::Event::Closed:
-			this->stateManager.quit();
+			this->data.stateManager.quit();
 			return;
 		case sf::Event::KeyPressed:
 			switch (event.key.code)
 			{
 			case sf::Keyboard::Escape:
-				this->stateManager.quit();
+				this->data.stateManager.quit();
 				return;
 			case sf::Keyboard::Up:
 				this->menuButtons.selectUp();
@@ -83,10 +83,10 @@ void MenuState::update(sf::Time& _deltaTime)
 
 void MenuState::draw()
 {
-	this->window.clear(sf::Color::Black);
+	this->data.window.clear(sf::Color::Black);
 
-	this->window.draw(this->menuText);
-	this->menuButtons.draw(this->window, sf::RenderStates::Default);
+	this->data.window.draw(this->menuText);
+	this->menuButtons.draw(this->data.window, sf::RenderStates::Default);
 
-	this->window.display();
+	this->data.window.display();
 }

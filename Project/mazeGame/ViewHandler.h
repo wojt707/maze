@@ -2,7 +2,9 @@
 #define VIEW_HANDLER_H
 #pragma once
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include "Player.h"
 #include "Constants.h"
 

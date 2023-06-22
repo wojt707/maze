@@ -1,9 +1,10 @@
 #include "PauseState.h"
 
-PauseState::PauseState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window)
-	: State(_stateManager, _resourceManager, _window),
+PauseState::PauseState(GameData& _data, std::shared_ptr<SaveableData> _saveableData)
+	: State(_data),
 	pauseStateButtons(float(SCREEN_HEIGHT / 2), { "Resume", "Save and go to menu", "How to play", "Quit" }),
-	pauseStateText("Pause", *(this->resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
+	pauseStateText("Pause", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100),
+	saveableData(_saveableData)
 {
 	this->pauseStateText.setFillColor(MAIN_COLOR);
 	this->pauseStateText.setOrigin(this->pauseStateText.getGlobalBounds().width / 2, this->pauseStateText.getGlobalBounds().height / 2);
@@ -23,18 +24,19 @@ void PauseState::handleEnter()
 	switch (selectedOption)
 	{
 	case 0:
-		this->stateManager.popState();
+		this->data.stateManager.popState();
 		return;
 	case 1:
 	{
-		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->stateManager, this->resourceManager, this->window);
-		this->stateManager.popAllAndChange(std::move(menuState));
+		this->data.saveManager.saveToFile(this->saveableData);
+		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->data);
+		this->data.stateManager.popAllAndChange(std::move(menuState));
 		return;
 	}
 	case 2:
 		return;
 	case 3:
-		this->stateManager.quit();
+		this->data.stateManager.quit();
 		return;
 	}
 }
@@ -43,18 +45,18 @@ void PauseState::handleInput()
 {
 	sf::Event event;
 
-	while (this->window.pollEvent(event))
+	while (this->data.window.pollEvent(event))
 	{
 		switch (event.type)
 		{
 		case sf::Event::Closed:
-			this->stateManager.quit();
+			this->data.stateManager.quit();
 			break;
 		case sf::Event::KeyPressed:
 			switch (event.key.code)
 			{
 			case sf::Keyboard::Escape:
-				this->stateManager.popState();
+				this->data.stateManager.popState();
 				return;
 			case sf::Keyboard::Up:
 				this->pauseStateButtons.selectUp();
@@ -83,10 +85,10 @@ void PauseState::update(sf::Time& _deltaTime)
 void PauseState::draw()
 {
 
-	this->window.clear(sf::Color::Black);
+	this->data.window.clear(sf::Color::Black);
 
-	this->window.draw(this->pauseStateText);
-	this->pauseStateButtons.draw(this->window, sf::RenderStates::Default);
+	this->data.window.draw(this->pauseStateText);
+	this->pauseStateButtons.draw(this->data.window, sf::RenderStates::Default);
 
-	this->window.display();
+	this->data.window.display();
 }

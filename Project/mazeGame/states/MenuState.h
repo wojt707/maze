@@ -2,9 +2,14 @@
 #define MENU_STATE_H
 #pragma once
 
-#include "StateManager.h"
+#include <iostream>
+#include <memory>
+#include <SFML/Graphics.hpp>
+ 
+#include "State.h"
+#include "../GameData.h"
+#include "../Constants.h"
 #include "GameState.h"
-#include "../resources/ResourceIdentifiers.h"
 #include "../button/ButtonList.h"
 
 class MenuState : public State
@@ -14,7 +19,7 @@ private:
 	sf::Text menuText;
 	void handleEnter();
 public:
-	MenuState(StateManager& _stateManager, ResourceManager& _resourceManager, sf::RenderWindow& _window);
+	MenuState(GameData& _data);
 	~MenuState();
 
 	void handleInput() override;

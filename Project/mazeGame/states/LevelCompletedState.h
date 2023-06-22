@@ -3,8 +3,13 @@
 #pragma once
 
 #include <future>
+#include <memory>
+#include <iostream>
+#include <SFML/Graphics.hpp>
 
-#include "StateManager.h"
+#include "State.h"
+#include "../GameData.h"
+#include "../Constants.h"
 #include "GameState.h"
 #include "MenuState.h"
 #include "../button/ButtonList.h"
@@ -16,14 +21,14 @@ private:
 	ButtonList levelCompletedButtons;
 	sf::Text levelCompletedText;
 
+	std::shared_ptr<SaveableData> saveableData;
 	std::unique_ptr<std::future<std::unique_ptr<Maze>>> nextLevelMaze;
 	int completedLevel;
 
 	void handleEnter();
 public:
-	LevelCompletedState(StateManager& _stateManager,
-		ResourceManager& _resourceManager,
-		sf::RenderWindow& _window,
+	LevelCompletedState(GameData& _data,
+		std::shared_ptr<SaveableData> _saveableData,
 		std::unique_ptr<std::future<std::unique_ptr<Maze>>> _nextLevelMaze,
 		int _completedLevel);
 	~LevelCompletedState();

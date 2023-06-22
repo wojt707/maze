@@ -2,19 +2,19 @@
 #define GAME_H
 #pragma once
 
+#include <memory>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "states/StateManager.h"
-#include "states/MenuState.h"
-#include "resources/ResourceManager.h"
+#include "GameData.h"
 #include "Constants.h"
+#include "states/State.h"
+#include "states/MenuState.h"
 
 class Game
 {
 private:
-	sf::RenderWindow window;
-	StateManager stateManager;
-	ResourceManager resourceManager;
+	GameData data;
 public:
 	Game();
 	void run();
