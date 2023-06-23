@@ -157,10 +157,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="states\AuthorState.cpp" />
     <ClCompile Include="button\ButtonList.cpp" />
     <ClCompile Include="button\Button.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="states\HowToPlayState.cpp" />
     <ClCompile Include="resources\ResourceManager.cpp" />
     <ClCompile Include="SaveableData.cpp" />
     <ClCompile Include="SaveManager.cpp" />
@@ -179,11 +181,13 @@
     <ClCompile Include="ViewHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="states\AuthorState.h" />
     <ClInclude Include="button\ButtonList.h" />
     <ClInclude Include="button\Button.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameData.h" />
+    <ClInclude Include="states\HowToPlayState.h" />
     <ClInclude Include="resources\ResourceManager.h" />
     <ClInclude Include="resources\Resource.h" />
     <ClInclude Include="resources\ResourceIdentifiers.h" />

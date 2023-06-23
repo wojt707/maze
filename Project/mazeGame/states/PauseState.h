@@ -10,6 +10,7 @@
 #include "../GameData.h"
 #include "../Constants.h"
 #include "MenuState.h"
+#include "HowToPlayState.h"
 #include "../button/ButtonList.h"
 #include "../SaveableData.h"
 

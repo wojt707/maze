@@ -31,9 +31,17 @@ void MenuState::handleEnter()
 	case 1:
 		return;
 	case 2:
+	{
+		std::unique_ptr<State> howToPlayState = std::make_unique<HowToPlayState>(this->data);
+		this->data.stateManager.pushState(std::move(howToPlayState));
 		return;
+	}
 	case 3:
+	{
+		std::unique_ptr<State> authorState = std::make_unique<AuthorState>(this->data);
+		this->data.stateManager.pushState(std::move(authorState));
 		return;
+	}
 	case 4:
 		this->data.stateManager.quit();
 		return;

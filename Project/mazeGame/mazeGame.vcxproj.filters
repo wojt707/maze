@@ -75,6 +75,12 @@
     <ClCompile Include="SaveableData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="states\HowToPlayState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="states\AuthorState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -144,6 +150,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SaveableData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="states\HowToPlayState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="states\AuthorState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

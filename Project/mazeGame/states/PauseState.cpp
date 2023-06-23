@@ -34,7 +34,11 @@ void PauseState::handleEnter()
 		return;
 	}
 	case 2:
+	{
+		std::unique_ptr<State> howToPlayState = std::make_unique<HowToPlayState>(this->data);
+		this->data.stateManager.pushState(std::move(howToPlayState));
 		return;
+	}
 	case 3:
 		this->data.stateManager.quit();
 		return;

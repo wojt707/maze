@@ -10,6 +10,8 @@
 #include "../GameData.h"
 #include "../Constants.h"
 #include "GameState.h"
+#include "HowToPlayState.h"
+#include "AuthorState.h"
 #include "../button/ButtonList.h"
 
 class MenuState : public State
