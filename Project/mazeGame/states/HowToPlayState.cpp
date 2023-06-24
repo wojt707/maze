@@ -2,7 +2,7 @@
 
 HowToPlayState::HowToPlayState(GameData& _data)
 	:State(_data),
-	description("W and S to move forth and back\n<- and -> to rotate", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT).get()))
+	description("W and S to move forth and back\n<- and -> to rotate", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT))
 {
 	this->description.setFillColor(sf::Color::White);
 	this->description.setOrigin(this->description.getGlobalBounds().width / 2, this->description.getGlobalBounds().height / 2);

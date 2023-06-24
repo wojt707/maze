@@ -14,13 +14,13 @@ template<typename ResourceType, typename Identifier>
 class Resource
 {
 private:
-	std::unordered_map<Identifier, std::shared_ptr<ResourceType>> resourceMap;
+	std::unordered_map<Identifier, ResourceType> resourceMap;
 public:
 	Resource();
 	~Resource();
 
 	void load(Identifier id, const std::string& filePath);
-	std::shared_ptr<ResourceType> get(Identifier id);
+	const ResourceType& get(Identifier id) const;
 };
 
 template<typename ResourceType, typename Identifier>
@@ -45,9 +45,9 @@ void Resource<ResourceType, Identifier>::load(Identifier id, const std::string& 
 		return;
 	}
 
-	std::shared_ptr<ResourceType> resource = std::make_shared<ResourceType>();
+	ResourceType resource;
 
-	if (!resource->loadFromFile(filePath))
+	if (!resource.loadFromFile(filePath))
 	{
 		throw std::runtime_error("Unable to open the resource: " + std::to_string(id) + " from: " + filePath + '\n');
 	}
@@ -55,7 +55,7 @@ void Resource<ResourceType, Identifier>::load(Identifier id, const std::string& 
 }
 
 template<typename ResourceType, typename Identifier>
-std::shared_ptr<ResourceType> Resource<ResourceType, Identifier>::get(Identifier id)
+const ResourceType& Resource<ResourceType, Identifier>::get(Identifier id) const
 {
 	auto it = this->resourceMap.find(id);
 	if (it == this->resourceMap.end())

@@ -2,8 +2,8 @@
 
 PauseState::PauseState(GameData& _data, std::shared_ptr<SaveableData> _saveableData)
 	: State(_data),
-	pauseStateButtons(float(SCREEN_HEIGHT / 2), { "Resume", "Save and go to menu", "How to play", "Quit" }),
-	pauseStateText("Pause", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100),
+	pauseStateButtons(float(SCREEN_HEIGHT / 2), PAUSE_OPTIONS, this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)),
+	pauseStateText("Pause", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT), 100),
 	saveableData(_saveableData)
 {
 	this->pauseStateText.setFillColor(MAIN_COLOR);

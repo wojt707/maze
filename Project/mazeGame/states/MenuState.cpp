@@ -2,8 +2,8 @@
 
 MenuState::MenuState(GameData& _data)
 	: State(_data),
-	menuButtons(float(SCREEN_HEIGHT / 2), { "Play", "Load game save", "How to play", "Author", "Quit" }),
-	menuText("Escape the maze", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
+	menuButtons(float(SCREEN_HEIGHT / 2), MENU_OPTIONS, this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)),
+	menuText("Escape the maze", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT), 100)
 {
 	this->menuText.setFillColor(MAIN_COLOR);
 	this->menuText.setOrigin(this->menuText.getGlobalBounds().width / 2, this->menuText.getGlobalBounds().height / 2);

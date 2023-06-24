@@ -5,8 +5,8 @@ LevelCompletedState::LevelCompletedState(GameData& _data,
 	std::unique_ptr<std::future<std::unique_ptr<Maze>>> _nextLevelMaze,
 	int _completedLevel)
 	:State(_data),
-	levelCompletedButtons(float(SCREEN_HEIGHT / 2), { "Next level", "Save and go to menu", "Quit" }),
-	levelCompletedText("Level completed", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100),
+	levelCompletedButtons(float(SCREEN_HEIGHT / 2), LEVEL_COMPLETED_OPTIONS, this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)),
+	levelCompletedText("Level completed", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT), 100),
 	saveableData(_saveableData),
 	nextLevelMaze(std::move(_nextLevelMaze)),
 	completedLevel(_completedLevel)

@@ -9,7 +9,7 @@ GameState::GameState(GameData& _data, int _level)
 	maze(std::make_unique<Maze>(MIN_MAP_SIZE + (_level - 1) * 2, MIN_MAP_SIZE + (_level - 1) * 2)),
 	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 200.0f),
 	level(_level),
-	textLevel("Level " + std::to_string(_level), *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)))
+	textLevel("Level " + std::to_string(_level), this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT))
 {
 	textLevel.setPosition(sf::Vector2f(500.0f, 0.0f));
 
@@ -30,7 +30,7 @@ GameState::GameState(GameData& _data, std::unique_ptr<Maze> _previouslyGenerated
 	maze(std::move(_previouslyGeneratedMaze)),
 	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 200.0f),
 	level(_level),
-	textLevel("Level " + std::to_string(_level), *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)))
+	textLevel("Level " + std::to_string(_level), this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT))
 {
 	textLevel.setPosition(sf::Vector2f(500.0f, 0.0f));
 

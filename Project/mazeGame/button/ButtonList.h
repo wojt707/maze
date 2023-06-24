@@ -12,16 +12,16 @@
 class ButtonList : public sf::Drawable
 {
 private:
-	std::vector<std::unique_ptr<Button>> buttonList;
+	std::vector<Button> buttonList;
 	int selectedOptionIndex;
 
 public:
-	ButtonList(float _topButtonYPosition, std::vector<std::string> _textsOfButtons);
+	ButtonList(float _topButtonYPosition, const std::vector<std::string>& _textsOfButtons, const sf::Font& _font);
 	~ButtonList();
 
 	void selectUp();
 	void selectDown();
-	int getSelectedOptionIndex();
+	int getSelectedOptionIndex() const;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

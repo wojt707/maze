@@ -2,7 +2,7 @@
 
 AuthorState::AuthorState(GameData& _data)
 	:State(_data),
-	aboutAuthor("Student of Silesian University of Technology", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT).get()))
+	aboutAuthor("Student of Silesian University of Technology", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT))
 {
 	this->aboutAuthor.setFillColor(sf::Color::White);
 	this->aboutAuthor.setOrigin(this->aboutAuthor.getGlobalBounds().width / 2, this->aboutAuthor.getGlobalBounds().height / 2);

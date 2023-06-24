@@ -2,8 +2,8 @@
 
 GameOverState::GameOverState(GameData& _data)
 	:State(_data),
-	gameOverButtons(float(SCREEN_HEIGHT / 2), { "Restart", "Save and go to menu", "Quit" }),
-	gameOverText("Game over", *(this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)), 100)
+	gameOverButtons(float(SCREEN_HEIGHT / 2), GAME_OVER_OPTIONS, this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)),
+	gameOverText("Game over", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT), 100)
 {
 	this->gameOverText.setFillColor(MAIN_COLOR);
 	this->gameOverText.setOrigin(this->gameOverText.getGlobalBounds().width / 2, this->gameOverText.getGlobalBounds().height / 2);

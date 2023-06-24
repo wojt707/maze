@@ -13,14 +13,14 @@ class Button : public sf::Drawable
 private:
 	sf::RectangleShape buttonShape;
 	sf::Text textOfButton;
-	sf::Font font;
 	bool isSelected;
 
 public:
-	Button(sf::Vector2f _buttonPosition, std::string _textOfButton = "");
+	Button(sf::Vector2f _buttonPosition, const std::string& _textOfButton, const sf::Font& _font);
 	~Button();
+
 	void setIsSelected(bool _isSelected);
-	bool getIsSelected();
+	bool getIsSelected() const;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
