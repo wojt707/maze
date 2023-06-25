@@ -21,14 +21,14 @@ private:
 	ButtonList levelCompletedButtons;
 	sf::Text levelCompletedText;
 
-	std::shared_ptr<SaveableData> saveableData;
+	std::shared_ptr<SaveableData> dataToSave;
 	std::unique_ptr<std::future<std::unique_ptr<Maze>>> nextLevelMaze;
 	int completedLevel;
 
 	void handleEnter();
 public:
 	LevelCompletedState(GameData& _data,
-		std::shared_ptr<SaveableData> _saveableData,
+		std::shared_ptr<SaveableData> _dataToSave,
 		std::unique_ptr<std::future<std::unique_ptr<Maze>>> _nextLevelMaze,
 		int _completedLevel);
 	~LevelCompletedState();

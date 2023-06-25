@@ -164,7 +164,6 @@
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="states\HowToPlayState.cpp" />
     <ClCompile Include="resources\ResourceManager.cpp" />
-    <ClCompile Include="SaveableData.cpp" />
     <ClCompile Include="SaveManager.cpp" />
     <ClCompile Include="states\GameOverState.cpp" />
     <ClCompile Include="states\LevelCompletedState.cpp" />

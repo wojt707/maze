@@ -17,6 +17,15 @@ Maze::Maze(unsigned int _mapWidth, unsigned int _mapHeight)
 	this->map = mazeGenerator.createMap();
 }
 
+Maze::Maze(unsigned int _mapWidth, unsigned int _mapHeight, std::shared_ptr<bool[]> _map)
+	: mapWidth(_mapWidth),
+	mapHeight(_mapHeight),
+	map(_map),
+	mapCell(sf::Vector2f(CELL_SIZE, CELL_SIZE)),
+	startingCellPosition(sf::Vector2f(CELL_SIZE, CELL_SIZE)),
+	endingCellPosition(sf::Vector2f(CELL_SIZE* float(this->mapWidth - 2), CELL_SIZE* float(this->mapHeight - 2)))
+{ }
+
 bool Maze::mapAt(unsigned int x, unsigned int y)
 {
 	return this->map[y * this->mapWidth + x];

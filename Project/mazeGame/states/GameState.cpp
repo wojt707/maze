@@ -7,7 +7,7 @@ GameState::GameState(GameData& _data, int _level)
 	// TODO maybe creating not only square maps
 	//viewHandler((MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE, (MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE),
 	maze(std::make_unique<Maze>(MIN_MAP_SIZE + (_level - 1) * 2, MIN_MAP_SIZE + (_level - 1) * 2)),
-	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 200.0f),
+	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 0.0f),
 	level(_level),
 	textLevel("Level " + std::to_string(_level), this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT))
 {
@@ -28,7 +28,7 @@ GameState::GameState(GameData& _data, std::unique_ptr<Maze> _previouslyGenerated
 	: State(_data),
 	//viewHandler((MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE, (MIN_MAP_SIZE + (_level - 1) * 2)* CELL_SIZE),
 	maze(std::move(_previouslyGeneratedMaze)),
-	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 200.0f),
+	player(sf::Vector2f(CELL_SIZE * 1.5f, CELL_SIZE * 1.5f), 0.0f),
 	level(_level),
 	textLevel("Level " + std::to_string(_level), this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT))
 {
@@ -43,6 +43,18 @@ GameState::GameState(GameData& _data, std::unique_ptr<Maze> _previouslyGenerated
 	this->saveableData->map = this->maze->getMap();
 
 	std::cout << "GameState level " << _level << " initialized with previously generated maze" << std::endl;
+}
+
+GameState::GameState(GameData& _data, std::shared_ptr<SaveableData> _dataFromFile)
+	: State(_data),
+	maze(std::make_unique<Maze>(_dataFromFile->mapWidth, _dataFromFile->mapHeight, _dataFromFile->map)),
+	player(_dataFromFile->playerPosition, _dataFromFile->playerAngle),
+	level(_dataFromFile->level),
+	textLevel("Level " + std::to_string(_dataFromFile->level), this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)),
+	saveableData(_dataFromFile),
+	nextLevelMaze(this->generateNextLevelMaze())
+{
+	std::cout << "GameState level " << this->level << " initialized with data from file" << std::endl;
 }
 
 GameState::~GameState()

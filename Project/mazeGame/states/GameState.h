@@ -39,7 +39,9 @@ private:
 public:
 	GameState(GameData& _data, int _level);
 	GameState(GameData& _data, std::unique_ptr<Maze> _previouslyGeneratedMaze, int _level);
+	GameState(GameData& _data, std::shared_ptr<SaveableData> _dataFromFile);
 	~GameState();
+
 	void handleInput() override;
 	void update(sf::Time& _deltaTime) override;
 	void draw() override;

@@ -29,7 +29,24 @@ void MenuState::handleEnter()
 		return;
 	}
 	case 1:
-		return;
+	{
+		try
+		{
+			// TODO implement user input to get file name
+			std::string fileName = "default_5.txt";
+
+			auto dataFromFile = this->data.saveManager.loadFromFile(fileName);
+
+			std::unique_ptr<State> gameState = std::make_unique<GameState>(this->data, dataFromFile);
+			this->data.stateManager.changeState(std::move(gameState));
+			return;
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << std::endl << "EXCEPTION: " << e.what() << std::endl;
+			break;
+		}
+	}
 	case 2:
 	{
 		std::unique_ptr<State> howToPlayState = std::make_unique<HowToPlayState>(this->data);

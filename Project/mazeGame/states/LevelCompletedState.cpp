@@ -1,13 +1,13 @@
 #include "LevelCompletedState.h"
 
 LevelCompletedState::LevelCompletedState(GameData& _data,
-	std::shared_ptr<SaveableData> _saveableData,
+	std::shared_ptr<SaveableData> _dataToSave,
 	std::unique_ptr<std::future<std::unique_ptr<Maze>>> _nextLevelMaze,
 	int _completedLevel)
 	:State(_data),
 	levelCompletedButtons(float(SCREEN_HEIGHT / 2), LEVEL_COMPLETED_OPTIONS, this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)),
 	levelCompletedText("Level completed", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT), 100),
-	saveableData(_saveableData),
+	dataToSave(_dataToSave),
 	nextLevelMaze(std::move(_nextLevelMaze)),
 	completedLevel(_completedLevel)
 {
@@ -37,7 +37,7 @@ void LevelCompletedState::handleEnter()
 	}
 	case 1:
 	{
-		this->data.saveManager.saveToFile(this->saveableData);
+		this->data.saveManager.saveToFile(this->dataToSave);
 		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->data);
 		this->data.stateManager.popAllAndChange(std::move(menuState));
 		return;

@@ -24,6 +24,7 @@ private:
 
 public:
 	Maze(unsigned int _mapWidth = MIN_MAP_SIZE, unsigned  int _mapHeight = MIN_MAP_SIZE);
+	Maze(unsigned int _mapWidth, unsigned  int _mapHeight, std::shared_ptr<bool[]> _map);
 	// TODO rethink if delete it or not	
 
 	// Delete the copy constructor

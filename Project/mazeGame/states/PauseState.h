@@ -20,11 +20,11 @@ private:
 	ButtonList pauseStateButtons;
 	sf::Text pauseStateText;
 
-	std::shared_ptr<SaveableData> saveableData;
+	std::shared_ptr<SaveableData> dataToSave;
 
 	void handleEnter();
 public:
-	PauseState(GameData& _data, std::shared_ptr<SaveableData> _saveableData);
+	PauseState(GameData& _data, std::shared_ptr<SaveableData> _dataToSave);
 	~PauseState();
 
 	void handleInput() override;

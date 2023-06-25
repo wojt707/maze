@@ -1,10 +1,10 @@
 #include "Player.h"
 
-Player::Player(sf::Vector2f _position, float _displacementRate)
+Player::Player(sf::Vector2f _position, float _initialAngle, float _displacementRate)
 	: shape(sf::Vector2f(PLAYER_SIZE, PLAYER_SIZE)),
 	displacement(0.0f, 0.0f),
 	displacementRate(_displacementRate),
-	angle(0.0f)
+	angle(_initialAngle)
 {
 	this->shape.setOrigin(sf::Vector2f(PLAYER_SIZE / 2, PLAYER_SIZE / 2));
 	this->shape.setPosition(_position);

@@ -17,7 +17,7 @@ private:
 	float displacementRate;
 	float angle; // in radians
 public:
-	Player(sf::Vector2f _position, float _displacementRate);
+	Player(sf::Vector2f _position, float _initialAngle, float _displacementRate = 200.0f);
 
 	sf::Vector2f getPosition();
 	void setPosition(sf::Vector2f _position);

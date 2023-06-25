@@ -1,10 +1,10 @@
 #include "PauseState.h"
 
-PauseState::PauseState(GameData& _data, std::shared_ptr<SaveableData> _saveableData)
+PauseState::PauseState(GameData& _data, std::shared_ptr<SaveableData> _dataToSave)
 	: State(_data),
 	pauseStateButtons(float(SCREEN_HEIGHT / 2), PAUSE_OPTIONS, this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT)),
 	pauseStateText("Pause", this->data.resourceManager.fonts.get(FontIDs::MAIN_FONT), 100),
-	saveableData(_saveableData)
+	dataToSave(_dataToSave)
 {
 	this->pauseStateText.setFillColor(MAIN_COLOR);
 	this->pauseStateText.setOrigin(this->pauseStateText.getGlobalBounds().width / 2, this->pauseStateText.getGlobalBounds().height / 2);
@@ -28,7 +28,7 @@ void PauseState::handleEnter()
 		return;
 	case 1:
 	{
-		this->data.saveManager.saveToFile(this->saveableData);
+		this->data.saveManager.saveToFile(this->dataToSave);
 		std::unique_ptr<State> menuState = std::make_unique<MenuState>(this->data);
 		this->data.stateManager.popAllAndChange(std::move(menuState));
 		return;
